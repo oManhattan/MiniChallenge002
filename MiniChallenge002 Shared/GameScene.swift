@@ -46,9 +46,10 @@ class GameScene: SKScene {
         configButton.action = {
             print("Funcionou")
         }
-
+        
         let progressBar = ProgressBarNode(size: self.size)
         progressBar.position = CGPoint(x: self.frame.minX + 20, y: self.frame.maxY - 10)
+        progressBar.name = "progress-bar"
         
         let progressLabel = SKLabelNode(text: "\(distance)m")
         progressLabel.verticalAlignmentMode = .top
@@ -58,6 +59,7 @@ class GameScene: SKScene {
         progressLabel.name = "progress-label"
         
         _ = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(changeDistance), userInfo: nil, repeats: true)
+        _ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressBar), userInfo: nil, repeats: true)
         
         self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel])
     }
@@ -65,7 +67,7 @@ class GameScene: SKScene {
     override func didMove(to view: SKView) {
         self.setUpScene()
     }
-
+    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
         
@@ -82,6 +84,13 @@ class GameScene: SKScene {
         progressLabel.text = "\(self.distance)m"
     }
     
+    @objc func updateProgressBar(){
+        guard let progressBar = self.childNode(withName: "progress-bar") as? ProgressBarNode, let progress = progressBar.childNode(withName: "progress") as? SKSpriteNode else { return }
+        if progress.size.width > 0{
+            progress.size.width -= 3
+        }
+    }
+
 }
 
 extension GameScene: SKPhysicsContactDelegate {
