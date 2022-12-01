@@ -9,6 +9,8 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    var distance = 0
+    
     override init(size: CGSize) {
         let landscapeSize = CGSize.toLandscape(size)
         super.init(size: landscapeSize)
@@ -44,13 +46,18 @@ class GameScene: SKScene {
         configButton.action = {
             print("Funcionou")
         }
-        
+
         let progressBar = ProgressBarNode(size: self.size)
         progressBar.position = CGPoint(x: self.frame.minX + 20, y: self.frame.maxY - 10)
         
-        let progressLabel = SKLabelNode(text: "Progresso vai aqui")
+        let progressLabel = SKLabelNode(text: "\(distance)m")
+        progressLabel.verticalAlignmentMode = .top
+        progressLabel.horizontalAlignmentMode = .right
         progressLabel.fontSize = 20
-        progressLabel.position = CGPoint(x: self.frame.maxX - (progressLabel.frame.maxX * 1.5), y: self.frame.maxY - progressLabel.frame.maxY - 10)
+        progressLabel.position = CGPoint(x: self.frame.maxX - 40, y: self.frame.maxY - 20)
+        progressLabel.name = "progress-label"
+        
+        _ = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(changeDistance), userInfo: nil, repeats: true)
         
         self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel])
     }
@@ -61,12 +68,20 @@ class GameScene: SKScene {
 
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let player = self.childNode(withName: "player") as? PlayerNode else { return }
         player.stateMachine?.enter(PlayerJumpingState.self)
     }
+    
+    @objc func changeDistance() {
+        guard let progressLabel = self.childNode(withName: "progress-label") as? SKLabelNode else { return }
+        self.distance += 1
+        progressLabel.text = "\(self.distance)m"
+    }
+    
 }
 
 extension GameScene: SKPhysicsContactDelegate {
