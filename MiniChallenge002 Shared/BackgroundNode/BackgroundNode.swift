@@ -59,7 +59,7 @@ class BackgroundNode: SKSpriteNode {
         // Criando um node para aplicar física
         let physicsGround = SKSpriteNode(
             texture: nil,
-            color: .clear,
+            color: .systemMint,
             size: CGSize(width: size.width - 2, height: self.size.height * 0.7 * 0.4))
         physicsGround.anchorPoint = CGPoint(x: 0.5, y: 0)
         physicsGround.position.x = frame.maxX / 2
@@ -68,7 +68,7 @@ class BackgroundNode: SKSpriteNode {
         physicsGround.physicsBody = SKPhysicsBody(rectangleOf: physicsGround.size)
         physicsGround.physicsBody?.isDynamic = false
         physicsGround.physicsBody?.restitution = 0
-        physicsGround.physicsBody?.contactTestBitMask = 1
+        physicsGround.physicsBody?.contactTestBitMask = 0b0001
         physicsGround.name = "physic-ground"
         
         // Adicionando o node criado

@@ -35,7 +35,7 @@ class PlayerJumpingState: GKState {
             }
             player.texture = SKTexture(imageNamed: "JumpingChar")
             player.physicsBody?.velocity = .zero
-            player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 10 * (player.size.height * 0.08)))
+            player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 10 * (player.physicsBody!.mass * player.frame.height * 0.7)))
         }
         
         node.run(action)

@@ -37,7 +37,8 @@ class PlayerNode: SKSpriteNode {
         physicsBody.allowsRotation = false
         physicsBody.affectedByGravity = true
         physicsBody.isDynamic = true
-        physicsBody.contactTestBitMask = 1
+        physicsBody.collisionBitMask = 0b0001
+        physicsBody.mass = 10
         
         self.physicsBody = physicsBody
     }
