@@ -15,7 +15,7 @@ class GameScene: SKScene {
     override init(size: CGSize) {
         let landscapeSize = CGSize.toLandscape(size)
         super.init(size: landscapeSize)
-        self.scaleMode = .aspectFit
+        self.scaleMode = .resizeFill
         self.physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
     }
@@ -33,7 +33,7 @@ class GameScene: SKScene {
         let playerNode = PlayerNode(size: self.size)
         playerNode.name = "player"
         playerNode.position.x = self.frame.minX + 150
-        playerNode.position.y = backgroundNode.childNode(withName: "physic-ground")!.frame.maxY
+        playerNode.position.y = backgroundNode.childNode(withName: "physic-ground")!.frame.maxY + 100
         playerNode.stateMachine?.enter(PlayerRuningState.self)
         
         let configButton = SKButton(

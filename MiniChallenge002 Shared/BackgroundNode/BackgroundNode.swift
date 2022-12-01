@@ -68,7 +68,7 @@ class BackgroundNode: SKSpriteNode {
         physicsGround.physicsBody = SKPhysicsBody(rectangleOf: physicsGround.size)
         physicsGround.physicsBody?.isDynamic = false
         physicsGround.physicsBody?.restitution = 0
-        physicsGround.physicsBody?.contactTestBitMask = 1
+        physicsGround.physicsBody?.contactTestBitMask = 0b0001
         physicsGround.name = "physic-ground"
         
         // Adicionando o node criado
