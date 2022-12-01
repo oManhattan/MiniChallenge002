@@ -9,117 +9,79 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    override init(size: CGSize) {
+        let landscapeSize = CGSize.toLandscape(size)
+        super.init(size: landscapeSize)
+        self.scaleMode = .aspectFit
+        self.physicsWorld.contactDelegate = self
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+    }
     
-    fileprivate var label : SKLabelNode?
-    fileprivate var spinnyNode : SKShapeNode?
-
-    
-    class func newGameScene() -> GameScene {
-        // Load 'GameScene.sks' as an SKScene.
-        guard let scene = SKScene(fileNamed: "GameScene") as? GameScene else {
-            print("Failed to load GameScene.sks")
-            abort()
-        }
-        
-        // Set the scale mode to scale to fit the window
-        scene.scaleMode = .aspectFill
-        
-        return scene
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("NSCoder not supported")
     }
     
     func setUpScene() {
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
+        let backgroundNode = BackgroundNode(size: self.size)
+        backgroundNode.speed = 2
+        backgroundNode.name = "background"
+        backgroundNode.stateMachine?.enter(BackgroundMovingState.self)
+        
+        let playerNode = PlayerNode(size: self.size)
+        playerNode.name = "player"
+        playerNode.position.x = self.frame.minX + 150
+        playerNode.position.y = backgroundNode.childNode(withName: "physic-ground")!.frame.maxY
+        playerNode.stateMachine?.enter(PlayerRuningState.self)
+        
+        let configButton = SKButton(
+            texture: SKTexture(imageNamed: "ConfigButton"),
+            color: .clear,
+            size: CGSize(width: self.size.height * 0.15, height: self.size.height * 0.15))
+        configButton.anchorPoint = .zero
+        configButton.position = CGPoint(x: 20, y: 10)
+        configButton.zPosition = 1
+        configButton.name = "configuration-button"
+        configButton.action = {
+            print("Funcionou")
         }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
+        let progressBar = ProgressBarNode(size: self.size)
+        progressBar.position = CGPoint(x: self.frame.minX + 20, y: self.frame.maxY - 10)
         
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 4.0
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+        let progressLabel = SKLabelNode(text: "Progresso vai aqui")
+        progressLabel.fontSize = 20
+        progressLabel.position = CGPoint(x: self.frame.maxX - (progressLabel.frame.maxX * 1.5), y: self.frame.maxY - progressLabel.frame.maxY - 10)
+        
+        self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel])
     }
     
     override func didMove(to view: SKView) {
         self.setUpScene()
     }
 
-    func makeSpinny(at pos: CGPoint, color: SKColor) {
-        if let spinny = self.spinnyNode?.copy() as! SKShapeNode? {
-            spinny.position = pos
-            spinny.strokeColor = color
-            self.addChild(spinny)
-        }
-    }
-    
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
     }
-}
-
-#if os(iOS) || os(tvOS)
-// Touch-based event handling
-extension GameScene {
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.green)
-        }
+        guard let player = self.childNode(withName: "player") as? PlayerNode else { return }
+        player.stateMachine?.enter(PlayerJumpingState.self)
     }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.blue)
-        }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.red)
-        }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            self.makeSpinny(at: t.location(in: self), color: SKColor.red)
-        }
-    }
-    
-   
 }
-#endif
 
-#if os(OSX)
-// Mouse-based event handling
-extension GameScene {
-
-    override func mouseDown(with event: NSEvent) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+extension GameScene: SKPhysicsContactDelegate {
+    func didBegin(_ contact: SKPhysicsContact) {
+        if verifyContactObjects(nameA: "player", nameB: "physic-ground", contact: contact) {
+            guard let player = self.childNode(withName: "player") as? PlayerNode else { return }
+            player.stateMachine?.enter(PlayerRuningState.self)
         }
-        self.makeSpinny(at: event.location(in: self), color: SKColor.green)
     }
     
-    override func mouseDragged(with event: NSEvent) {
-        self.makeSpinny(at: event.location(in: self), color: SKColor.blue)
+    func verifyContactObjects(nameA: String, nameB: String, contact: SKPhysicsContact) -> Bool {
+        guard let bodyA = contact.bodyA.node?.name, let bodyB = contact.bodyB.node?.name else { return false }
+        if (bodyA == nameA || bodyA == nameB) && (bodyB == nameA || bodyB == nameB) {
+            return true
+        }
+        return false
     }
-    
-    override func mouseUp(with event: NSEvent) {
-        self.makeSpinny(at: event.location(in: self), color: SKColor.red)
-    }
-
 }
-#endif
-

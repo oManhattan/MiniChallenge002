@@ -7,19 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		317F7CDF293823E90086EB94 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F7CDE293823E90086EB94 /* SKButton.swift */; };
+		317F7CE2293829470086EB94 /* ProgressBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F7CE1293829470086EB94 /* ProgressBarNode.swift */; };
 		31E778392937AED6004C8E20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778382937AED6004C8E20 /* AppDelegate.swift */; };
 		31E7783B2937AED6004C8E20 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7783A2937AED6004C8E20 /* GameViewController.swift */; };
 		31E7783E2937AED6004C8E20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E7783C2937AED6004C8E20 /* Main.storyboard */; };
 		31E778412937AED6004C8E20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E7783F2937AED6004C8E20 /* LaunchScreen.storyboard */; };
-		31E778422937AED6004C8E20 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 31E7782D2937AED6004C8E20 /* Actions.sks */; };
-		31E778432937AED6004C8E20 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 31E7782E2937AED6004C8E20 /* GameScene.sks */; };
 		31E778442937AED6004C8E20 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7782F2937AED6004C8E20 /* GameScene.swift */; };
 		31E778452937AED6004C8E20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31E778302937AED6004C8E20 /* Assets.xcassets */; };
+		31E7784C2937B493004C8E20 /* Class+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7784B2937B493004C8E20 /* Class+Extensions.swift */; };
+		31E7784F2937B95B004C8E20 /* BackgroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7784E2937B95B004C8E20 /* BackgroundNode.swift */; };
+		31E778512937B98B004C8E20 /* BackgroundMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778502937B98B004C8E20 /* BackgroundMovingState.swift */; };
+		31E778532937B995004C8E20 /* BackgroundPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778522937B995004C8E20 /* BackgroundPauseState.swift */; };
+		31E778552937C76F004C8E20 /* GroundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778542937C76F004C8E20 /* GroundNode.swift */; };
+		31E778582937DD71004C8E20 /* PlayerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778572937DD71004C8E20 /* PlayerNode.swift */; };
+		31E7785A2937DD7C004C8E20 /* PlayerRuningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778592937DD7C004C8E20 /* PlayerRuningState.swift */; };
+		31E7785C2937DD8A004C8E20 /* PlayerJumpingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */; };
+		31E7785E2937DDA0004C8E20 /* PlayerPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		31E7782D2937AED6004C8E20 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
-		31E7782E2937AED6004C8E20 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		317F7CDE293823E90086EB94 /* SKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
+		317F7CE1293829470086EB94 /* ProgressBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNode.swift; sourceTree = "<group>"; };
 		31E7782F2937AED6004C8E20 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		31E778302937AED6004C8E20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31E778352937AED6004C8E20 /* MiniChallenge002.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniChallenge002.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -27,6 +36,15 @@
 		31E7783A2937AED6004C8E20 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		31E7783D2937AED6004C8E20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		31E778402937AED6004C8E20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		31E7784B2937B493004C8E20 /* Class+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Class+Extensions.swift"; sourceTree = "<group>"; };
+		31E7784E2937B95B004C8E20 /* BackgroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundNode.swift; sourceTree = "<group>"; };
+		31E778502937B98B004C8E20 /* BackgroundMovingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundMovingState.swift; sourceTree = "<group>"; };
+		31E778522937B995004C8E20 /* BackgroundPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundPauseState.swift; sourceTree = "<group>"; };
+		31E778542937C76F004C8E20 /* GroundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroundNode.swift; sourceTree = "<group>"; };
+		31E778572937DD71004C8E20 /* PlayerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerNode.swift; sourceTree = "<group>"; };
+		31E778592937DD7C004C8E20 /* PlayerRuningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRuningState.swift; sourceTree = "<group>"; };
+		31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerJumpingState.swift; sourceTree = "<group>"; };
+		31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPauseState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +58,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		317F7CDD293823DB0086EB94 /* ButtonNode */ = {
+			isa = PBXGroup;
+			children = (
+				317F7CDE293823E90086EB94 /* SKButton.swift */,
+			);
+			path = ButtonNode;
+			sourceTree = "<group>";
+		};
+		317F7CE0293829340086EB94 /* ProgressBarNode */ = {
+			isa = PBXGroup;
+			children = (
+				317F7CE1293829470086EB94 /* ProgressBarNode.swift */,
+			);
+			path = ProgressBarNode;
+			sourceTree = "<group>";
+		};
 		31E778272937AED6004C8E20 = {
 			isa = PBXGroup;
 			children = (
@@ -52,8 +86,10 @@
 		31E7782C2937AED6004C8E20 /* MiniChallenge002 Shared */ = {
 			isa = PBXGroup;
 			children = (
-				31E7782D2937AED6004C8E20 /* Actions.sks */,
-				31E7782E2937AED6004C8E20 /* GameScene.sks */,
+				317F7CE0293829340086EB94 /* ProgressBarNode */,
+				317F7CDD293823DB0086EB94 /* ButtonNode */,
+				31E778562937DD62004C8E20 /* PlayerNode */,
+				31E7784D2937B8BA004C8E20 /* BackgroundNode */,
 				31E7782F2937AED6004C8E20 /* GameScene.swift */,
 				31E778302937AED6004C8E20 /* Assets.xcassets */,
 			);
@@ -71,12 +107,35 @@
 		31E778372937AED6004C8E20 /* MiniChallenge002 iOS */ = {
 			isa = PBXGroup;
 			children = (
+				31E7784B2937B493004C8E20 /* Class+Extensions.swift */,
 				31E778382937AED6004C8E20 /* AppDelegate.swift */,
 				31E7783A2937AED6004C8E20 /* GameViewController.swift */,
 				31E7783C2937AED6004C8E20 /* Main.storyboard */,
 				31E7783F2937AED6004C8E20 /* LaunchScreen.storyboard */,
 			);
 			path = "MiniChallenge002 iOS";
+			sourceTree = "<group>";
+		};
+		31E7784D2937B8BA004C8E20 /* BackgroundNode */ = {
+			isa = PBXGroup;
+			children = (
+				31E7784E2937B95B004C8E20 /* BackgroundNode.swift */,
+				31E778502937B98B004C8E20 /* BackgroundMovingState.swift */,
+				31E778522937B995004C8E20 /* BackgroundPauseState.swift */,
+				31E778542937C76F004C8E20 /* GroundNode.swift */,
+			);
+			path = BackgroundNode;
+			sourceTree = "<group>";
+		};
+		31E778562937DD62004C8E20 /* PlayerNode */ = {
+			isa = PBXGroup;
+			children = (
+				31E778572937DD71004C8E20 /* PlayerNode.swift */,
+				31E778592937DD7C004C8E20 /* PlayerRuningState.swift */,
+				31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */,
+				31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */,
+			);
+			path = PlayerNode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,9 +196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31E778432937AED6004C8E20 /* GameScene.sks in Resources */,
 				31E7783E2937AED6004C8E20 /* Main.storyboard in Resources */,
-				31E778422937AED6004C8E20 /* Actions.sks in Resources */,
 				31E778412937AED6004C8E20 /* LaunchScreen.storyboard in Resources */,
 				31E778452937AED6004C8E20 /* Assets.xcassets in Resources */,
 			);
@@ -152,9 +209,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31E778552937C76F004C8E20 /* GroundNode.swift in Sources */,
 				31E778442937AED6004C8E20 /* GameScene.swift in Sources */,
+				31E778582937DD71004C8E20 /* PlayerNode.swift in Sources */,
+				31E7785A2937DD7C004C8E20 /* PlayerRuningState.swift in Sources */,
+				317F7CE2293829470086EB94 /* ProgressBarNode.swift in Sources */,
+				31E7785C2937DD8A004C8E20 /* PlayerJumpingState.swift in Sources */,
+				31E7785E2937DDA0004C8E20 /* PlayerPauseState.swift in Sources */,
 				31E7783B2937AED6004C8E20 /* GameViewController.swift in Sources */,
+				31E7784C2937B493004C8E20 /* Class+Extensions.swift in Sources */,
+				31E778512937B98B004C8E20 /* BackgroundMovingState.swift in Sources */,
 				31E778392937AED6004C8E20 /* AppDelegate.swift in Sources */,
+				31E778532937B995004C8E20 /* BackgroundPauseState.swift in Sources */,
+				31E7784F2937B95B004C8E20 /* BackgroundNode.swift in Sources */,
+				317F7CDF293823E90086EB94 /* SKButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,12 +366,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KFCLN3TFTY;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -313,9 +381,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.save-nature.MiniChallenge002";
 				PRODUCT_NAME = MiniChallenge002;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -328,12 +399,12 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KFCLN3TFTY;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIStatusBarHidden = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -343,9 +414,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.save-nature.MiniChallenge002";
 				PRODUCT_NAME = MiniChallenge002;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
