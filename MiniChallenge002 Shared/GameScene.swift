@@ -9,6 +9,9 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    var elementGenerator: ElementNode?
+    var timer: Timer?
+    
     override init(size: CGSize) {
         let landscapeSize = CGSize.toLandscape(size)
         super.init(size: landscapeSize)
@@ -53,9 +56,16 @@ class GameScene: SKScene {
         progressLabel.position = CGPoint(x: self.frame.maxX - (progressLabel.frame.maxX * 1.5), y: self.frame.maxY - progressLabel.frame.maxY - 10)
         
         self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel])
+        
+        self.elementGenerator = ElementNode(scene: self)
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(generateElements), userInfo: nil, repeats: true)
+        
+        
     }
     
     override func didMove(to view: SKView) {
+//        view.showsPhysics = true
         self.setUpScene()
     }
 
@@ -66,6 +76,10 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let player = self.childNode(withName: "player") as? PlayerNode else { return }
         player.stateMachine?.enter(PlayerJumpingState.self)
+    }
+    
+    @objc func generateElements() {
+        self.elementGenerator?.generatePattern01()
     }
 }
 

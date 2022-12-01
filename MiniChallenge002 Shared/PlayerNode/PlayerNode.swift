@@ -27,12 +27,14 @@ class PlayerNode: SKSpriteNode {
     }
     
     func setUpNode() {
-        self.anchorPoint = CGPoint(x: 0.5, y: 0)
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         self.zPosition = 1
         
         self.stateMachine = GKStateMachine(states: [PlayerPauseState(node: self), PlayerRuningState(node: self), PlayerJumpingState(node: self)])
         
-        let physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        let physicsBody = SKPhysicsBody(texture: self.texture!,
+                                        size: self.size)
+        
         physicsBody.restitution = 0
         physicsBody.allowsRotation = false
         physicsBody.affectedByGravity = true

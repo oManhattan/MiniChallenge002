@@ -24,6 +24,7 @@
 		31E7785A2937DD7C004C8E20 /* PlayerRuningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778592937DD7C004C8E20 /* PlayerRuningState.swift */; };
 		31E7785C2937DD8A004C8E20 /* PlayerJumpingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */; };
 		31E7785E2937DDA0004C8E20 /* PlayerPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */; };
+		88F3A32429390EF600561FED /* ElementNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F3A32329390EF600561FED /* ElementNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		31E778592937DD7C004C8E20 /* PlayerRuningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRuningState.swift; sourceTree = "<group>"; };
 		31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerJumpingState.swift; sourceTree = "<group>"; };
 		31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPauseState.swift; sourceTree = "<group>"; };
+		88F3A32329390EF600561FED /* ElementNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 		31E7782C2937AED6004C8E20 /* MiniChallenge002 Shared */ = {
 			isa = PBXGroup;
 			children = (
+				88F3A32229390EC500561FED /* ElementNode */,
 				317F7CE0293829340086EB94 /* ProgressBarNode */,
 				317F7CDD293823DB0086EB94 /* ButtonNode */,
 				31E778562937DD62004C8E20 /* PlayerNode */,
@@ -136,6 +139,14 @@
 				31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */,
 			);
 			path = PlayerNode;
+			sourceTree = "<group>";
+		};
+		88F3A32229390EC500561FED /* ElementNode */ = {
+			isa = PBXGroup;
+			children = (
+				88F3A32329390EF600561FED /* ElementNode.swift */,
+			);
+			path = ElementNode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +231,7 @@
 				31E7784C2937B493004C8E20 /* Class+Extensions.swift in Sources */,
 				31E778512937B98B004C8E20 /* BackgroundMovingState.swift in Sources */,
 				31E778392937AED6004C8E20 /* AppDelegate.swift in Sources */,
+				88F3A32429390EF600561FED /* ElementNode.swift in Sources */,
 				31E778532937B995004C8E20 /* BackgroundPauseState.swift in Sources */,
 				31E7784F2937B95B004C8E20 /* BackgroundNode.swift in Sources */,
 				317F7CDF293823E90086EB94 /* SKButton.swift in Sources */,
@@ -364,7 +376,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KFCLN3TFTY;
+				DEVELOPMENT_TEAM = Z2T622XX3F;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -397,7 +409,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KFCLN3TFTY;
+				DEVELOPMENT_TEAM = Z2T622XX3F;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
