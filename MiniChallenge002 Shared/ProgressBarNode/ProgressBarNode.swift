@@ -12,8 +12,14 @@ import GameKit
 class ProgressBarNode: SKSpriteNode {
     
     var progress: SKSpriteNode?
+    var currentProgress: CGFloat {
+        return progress?.size.width ?? 0
+    }
+    var maxSize: CGFloat
     
     init(size: CGSize) {
+        self.maxSize = .zero
+        
         super.init(
             texture: SKTexture(imageNamed: "ProgressBar"),
             color: .clear,
@@ -21,9 +27,11 @@ class ProgressBarNode: SKSpriteNode {
         
         self.zPosition = 3
         self.anchorPoint = CGPoint(x: 0, y: 1)
+        
         self.aspectFillToSize(fillSize: CGSize(width: size.width * 0.33, height: size.height * 0.13))
-        print(self.frame)
-        let progressBar = SKSpriteNode(texture: nil, color: .green, size: CGSize(width: self.frame.width * 2.72 , height: self.frame.height))
+        
+        self.maxSize = self.frame.width * 2.72
+        let progressBar = SKSpriteNode(texture: nil, color: .green, size: CGSize(width: self.maxSize, height: self.frame.height))
         progressBar.anchorPoint = CGPoint(x: 0, y: 1)
         progressBar.position.x = self.frame.maxX * 0.3
         progressBar.position.y = self.frame.minY - 5
@@ -36,5 +44,19 @@ class ProgressBarNode: SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoder not supported")
+    }
+    
+    func changeProgressSize(value: CGFloat) {
+        if self.currentProgress + value < 0 {
+            self.progress?.size.width = 0
+            return
+        }
+        
+        if self.currentProgress + value > self.maxSize {
+            self.progress?.size.width = self.maxSize
+            return
+        }
+        
+        self.progress?.size.width += value
     }
 }
