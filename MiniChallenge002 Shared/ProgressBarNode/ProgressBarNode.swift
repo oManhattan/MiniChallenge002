@@ -11,6 +11,8 @@ import GameKit
 
 class ProgressBarNode: SKSpriteNode {
     
+    var progress: SKSpriteNode?
+    
     init(size: CGSize) {
         super.init(
             texture: SKTexture(imageNamed: "ProgressBar"),
@@ -28,6 +30,7 @@ class ProgressBarNode: SKSpriteNode {
         progressBar.name = "progress"
         progressBar.zPosition = 0
         self.addChild(progressBar)
+        self.progress = progressBar
     }
     
     

@@ -12,6 +12,8 @@ class GameScene: SKScene {
     var player: PlayerNode?
     var background: BackgroundNode?
     var configurationButton: SKButton?
+    var progressBar: ProgressBarNode?
+    var progressLabel: SKLabelNode?
     
     var elementFactory: ElementFactory?
     
@@ -73,16 +75,18 @@ class GameScene: SKScene {
         progressLabel.name = "progress-label"
         
         self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel, self.backgroundSound])
+        
         self.background = backgroundNode
         self.player = playerNode
         self.configurationButton = configButton
+        self.progressBar = progressBar
+        self.progressLabel = progressLabel
         
         self.elementFactory = ElementFactory(scene: self)
         self.elementTimer = Timer.scheduledTimer(timeInterval: 1.3, target: self, selector: #selector(generateElements), userInfo: nil, repeats: true)
         
         _ = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(changeDistance), userInfo: nil, repeats: true)
         _ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressBar), userInfo: nil, repeats: true)
-        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(reduceLife), userInfo: nil, repeats: true)
     }
     
     override func didMove(to view: SKView) {
@@ -91,8 +95,8 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        background?.effectNode?.filter = CIFilter(name: "CIColorControls")
-        background?.effectNode?.filter?.setValue(life/100, forKey: kCIInputSaturationKey)
+//        background?.effectNode?.filter = CIFilter(name: "CIColorControls")
+//        background?.effectNode?.filter?.setValue(life/100, forKey: kCIInputSaturationKey)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -141,7 +145,16 @@ extension GameScene: SKPhysicsContactDelegate {
         }
         
         if verifyContactObjects(nameA: "player", nameB: "element", contact: contact) {
-            guard let element = getObject(name: "element", contact: contact) else { return }
+            if (self.progressBar?.progress?.size.width)! <= 0 {
+                return
+            }
+            guard let element = getObject(name: "element", contact: contact) as? Element else { return }
+            switch element.type {
+            case .nature:
+                self.progressBar?.progress?.size.width += 20
+            case .fire:
+                self.progressBar?.progress?.size.width -= 20
+            }
             element.removeFromParent()
             return
         }
@@ -171,22 +184,13 @@ extension GameScene: SKPhysicsContactDelegate {
 extension GameScene {
     
     @objc func changeDistance() {
-        guard let progressLabel = self.childNode(withName: "progress-label") as? SKLabelNode else { return }
         self.distance += 1
-        progressLabel.text = "\(self.distance)m"
+        self.progressLabel?.text = "\(self.distance)m"
     }
     
     @objc func updateProgressBar(){
-        guard let progressBar = self.childNode(withName: "progress-bar") as? ProgressBarNode, let progress = progressBar.childNode(withName: "progress") as? SKSpriteNode else { return }
-        if progress.size.width > 0{
-            progress.size.width -= 3
-        }
-    }
-    
-    @objc func reduceLife(){
-        self.life -= 10
-        if life == 0 {
-            life = 100
+        if (self.progressBar?.progress?.size.width)! > 0{
+            self.progressBar?.progress?.size.width -= 3
         }
     }
 }

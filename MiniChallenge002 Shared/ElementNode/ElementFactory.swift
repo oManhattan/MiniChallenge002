@@ -18,6 +18,12 @@ class ElementFactory {
     
     init(scene: SKScene) {
         self.scene = scene
+        natureTexture.preload {
+            
+        }
+        fireTexture.preload {
+            
+        }
         setUpPatterns()
     }
     
