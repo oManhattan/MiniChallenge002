@@ -36,6 +36,7 @@ class GameScene: SKScene {
         backgroundImage.anchorPoint = .zero
         backgroundImage.position.x = (frame.maxX * CGFloat(0)) - 10
         backgroundImage.position.y = self.frame.minY
+        backgroundImage.zPosition = -5
         
         effectNode.addChild(backgroundImage)
         effectNode.zPosition = -5
@@ -45,8 +46,6 @@ class GameScene: SKScene {
         backgroundNode.speed = self.speed
         backgroundNode.name = "background"
         backgroundNode.stateMachine?.enter(BackgroundMovingState.self)
-        
-        
         
         let playerNode = PlayerNode(size: self.size)
         playerNode.name = "player"
@@ -120,7 +119,6 @@ class GameScene: SKScene {
     }
     
     @objc func generateElements() {
-//        DispatchQueue.main.async {
             let patterns: [Int] = .init(1...3)
             switch patterns.randomElement()! {
             case 1:
@@ -132,7 +130,6 @@ class GameScene: SKScene {
             default:
                 return
             }
-//        }
     }
     
     @objc func changeDistance() {

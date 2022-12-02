@@ -15,11 +15,13 @@ class ElementNode {
     }
     
     var scene: SKScene
+    var patterns: [[SKSpriteNode]] = []
     static var natureTexture: SKTexture = SKTexture(imageNamed: "NaturePoint")
     static var fireTexture: SKTexture = SKTexture(imageNamed: "FirePoint")
     
     init(scene: SKScene) {
         self.scene = scene
+        
     }
     
     static func generateRandomElement() -> SKSpriteNode {
@@ -42,17 +44,15 @@ class ElementNode {
     
     static func genetareElementNature() -> SKSpriteNode{
         let elementNature = SKSpriteNode.init(texture: self.natureTexture, color: .clear, size: CGSize(width: 20, height: 20))
-//        let elementNature = SKSpriteNode.init(texture: nil, color: .red, size: CGSize(width: 20, height: 20))
         return elementNature
     }
     
     static func generateElementFire() -> SKSpriteNode{
         let elementFire = SKSpriteNode.init(texture: self.fireTexture, color: .clear, size: .zero)
-//        let elementFire = SKSpriteNode.init(texture: nil, color: .red, size: CGSize(width: 20, height: 20))
         return elementFire
     }
     
-    func generatePattern01() {
+    func generatePattern01() -> [SKSpriteNode] {
         guard let scene = self.scene as? GameScene else { return }
         
         for i in 0...2 {
@@ -90,7 +90,7 @@ class ElementNode {
         }
     }
     
-    func generatePattern02() {
+    func generatePattern02() -> [SKSpriteNode] {
         guard let scene = self.scene as? GameScene else { return }
         
         for i in 0...2 {
@@ -128,8 +128,8 @@ class ElementNode {
         }
     }
     
-    func generatePattern03() {
-        guard let scene = self.scene as? GameScene else { return }
+    func generatePattern03() -> [SKSpriteNode] {
+        guard let scene = self.scene as? GameScene else { return [] }
         
         for i in 0...1 {
             let element = ElementNode.generateElement(type: .fire)
