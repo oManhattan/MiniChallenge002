@@ -10,6 +10,9 @@
 		3131D7CB29399CD6008E2E19 /* teste.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3131D7CA29399CD6008E2E19 /* teste.mp3 */; };
 		3131D7CD29399E54008E2E19 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7CC29399E54008E2E19 /* Element.swift */; };
 		3131D7CF293A34AD008E2E19 /* ElementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7CE293A34AD008E2E19 /* ElementType.swift */; };
+		3131D7D1293A8D7A008E2E19 /* ElementMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */; };
+		3131D7D3293A8E21008E2E19 /* ElementPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D2293A8E21008E2E19 /* ElementPauseState.swift */; };
+		3131D7D5293A8F40008E2E19 /* SKStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D4293A8F40008E2E19 /* SKStateNode.swift */; };
 		317F7CDF293823E90086EB94 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F7CDE293823E90086EB94 /* SKButton.swift */; };
 		317F7CE2293829470086EB94 /* ProgressBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F7CE1293829470086EB94 /* ProgressBarNode.swift */; };
 		31E778392937AED6004C8E20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778382937AED6004C8E20 /* AppDelegate.swift */; };
@@ -34,6 +37,9 @@
 		3131D7CA29399CD6008E2E19 /* teste.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = teste.mp3; sourceTree = "<group>"; };
 		3131D7CC29399E54008E2E19 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		3131D7CE293A34AD008E2E19 /* ElementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementType.swift; sourceTree = "<group>"; };
+		3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementMovingState.swift; sourceTree = "<group>"; };
+		3131D7D2293A8E21008E2E19 /* ElementPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementPauseState.swift; sourceTree = "<group>"; };
+		3131D7D4293A8F40008E2E19 /* SKStateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStateNode.swift; sourceTree = "<group>"; };
 		317F7CDE293823E90086EB94 /* SKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
 		317F7CE1293829470086EB94 /* ProgressBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNode.swift; sourceTree = "<group>"; };
 		31E7782F2937AED6004C8E20 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -99,6 +105,7 @@
 				317F7CDD293823DB0086EB94 /* ButtonNode */,
 				31E778562937DD62004C8E20 /* PlayerNode */,
 				31E7784D2937B8BA004C8E20 /* BackgroundNode */,
+				3131D7D4293A8F40008E2E19 /* SKStateNode.swift */,
 				31E7782F2937AED6004C8E20 /* GameScene.swift */,
 				3131D7CA29399CD6008E2E19 /* teste.mp3 */,
 				31E778302937AED6004C8E20 /* Assets.xcassets */,
@@ -154,6 +161,8 @@
 				88F3A32329390EF600561FED /* ElementFactory.swift */,
 				3131D7CC29399E54008E2E19 /* Element.swift */,
 				3131D7CE293A34AD008E2E19 /* ElementType.swift */,
+				3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */,
+				3131D7D2293A8E21008E2E19 /* ElementPauseState.swift */,
 			);
 			path = ElementNode;
 			sourceTree = "<group>";
@@ -236,15 +245,18 @@
 				31E778582937DD71004C8E20 /* PlayerNode.swift in Sources */,
 				31E7785A2937DD7C004C8E20 /* PlayerRuningState.swift in Sources */,
 				317F7CE2293829470086EB94 /* ProgressBarNode.swift in Sources */,
+				3131D7D3293A8E21008E2E19 /* ElementPauseState.swift in Sources */,
 				31E7785C2937DD8A004C8E20 /* PlayerJumpingState.swift in Sources */,
 				31E7785E2937DDA0004C8E20 /* PlayerPauseState.swift in Sources */,
 				31E7783B2937AED6004C8E20 /* GameViewController.swift in Sources */,
 				31E7784C2937B493004C8E20 /* Class+Extensions.swift in Sources */,
+				3131D7D1293A8D7A008E2E19 /* ElementMovingState.swift in Sources */,
 				31E778512937B98B004C8E20 /* BackgroundMovingState.swift in Sources */,
 				3131D7CF293A34AD008E2E19 /* ElementType.swift in Sources */,
 				31E778392937AED6004C8E20 /* AppDelegate.swift in Sources */,
 				88F3A32429390EF600561FED /* ElementFactory.swift in Sources */,
 				31E778532937B995004C8E20 /* BackgroundPauseState.swift in Sources */,
+				3131D7D5293A8F40008E2E19 /* SKStateNode.swift in Sources */,
 				31E7784F2937B95B004C8E20 /* BackgroundNode.swift in Sources */,
 				317F7CDF293823E90086EB94 /* SKButton.swift in Sources */,
 			);

@@ -82,7 +82,7 @@ class GameScene: SKScene {
         progressLabel.position = CGPoint(x: self.frame.maxX - 40, y: self.frame.maxY - 20)
         progressLabel.name = "progress-label"
         
-        self.addChildren([backgroundNode, playerNode, configButton, startButton, progressLabel, self.backgroundSound])
+        self.addChildren([backgroundNode, playerNode, configButton, progressLabel, self.backgroundSound])
         
         self.background = backgroundNode
         self.player = playerNode
@@ -118,20 +118,8 @@ class GameScene: SKScene {
     }
     
     @objc func generateElements() {
-
         guard let randomPattern = self.elementFactory?.randomPattern() else { return }
-        let action = SKAction.customAction(withDuration: 1/60) { node, _ in
-            guard let elementName = node.name, elementName == "element" else {
-                print("Failed to move element")
-                return
-            }
-            node.position.x -= self.speed
-            
-            if node.frame.maxX - 2 <= -10 {
-                node.removeFromParent()
-            }
-        }
-        self.addChildrenWithAction(randomPattern, action: action)
+        self.addChildrenWithAction(randomPattern, state: ElementMovingState.self)
     }
 }
 
@@ -149,11 +137,12 @@ extension GameScene: SKPhysicsContactDelegate {
                 return
             }
             guard let element = getObject(name: "element", contact: contact) as? Element else { return }
+            guard let maxSize = self.background?.progressBar?.maxSize else { return }
             switch element.type {
             case .nature:
-                self.background?.progressBar?.changeProgressSize(value: 20.0)
+                self.background?.progressBar?.changeProgressSize(value: maxSize * 0.05)
             case .fire:
-                self.background?.progressBar?.changeProgressSize(value: -20.0)
+                self.background?.progressBar?.changeProgressSize(value: -(maxSize * 0.07))
             }
             element.removeFromParent()
             return

@@ -61,10 +61,10 @@ extension SKScene {
         }
     }
     
-    func addChildrenWithAction(_ children: [SKNode], action: SKAction) {
+    func addChildrenWithAction(_ children: [SKStateNode], state: GKState.Type) {
         children.forEach {
             addChild($0)
-            $0.run(.repeatForever(action))
+            $0.stateMachine?.enter(state)
         }
     }
 }

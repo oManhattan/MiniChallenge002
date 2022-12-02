@@ -7,16 +7,21 @@
 
 import Foundation
 import SpriteKit
+import GameKit
 
-class Element: SKSpriteNode {
+class Element: SKSpriteNode, SKStateNode {
     
+    var stateMachine: GKStateMachine?
     var type: ElementType
     
     init(type: ElementType, texture: SKTexture, size: CGSize) {
         self.type = type
         super.init(texture: texture, color: .clear, size: size)
         
+        self.stateMachine = GKStateMachine(states: [ElementMovingState(self), ElementPauseState(self)])
+        
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.speed = 2
         self.name = "element"
         
         self.physicsBody = SKPhysicsBody(texture: texture, size: size)

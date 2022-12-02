@@ -15,7 +15,7 @@ struct PhysicsCategory {
     static let chao: UInt32 = 0x1 << 3
 }
 
-class PlayerNode: SKSpriteNode {
+class PlayerNode: SKSpriteNode, SKStateNode {
     
     var stateMachine: GKStateMachine?
     

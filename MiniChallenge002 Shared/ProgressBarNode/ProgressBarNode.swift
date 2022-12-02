@@ -50,6 +50,7 @@ class ProgressBarNode: SKSpriteNode {
     }
     
     func changeProgressSize(value: CGFloat) {
+        
         if self.currentProgress + value < 0 {
             self.progress?.size.width = 0
             return

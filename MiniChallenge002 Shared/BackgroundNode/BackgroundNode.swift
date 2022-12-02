@@ -9,7 +9,7 @@ import Foundation
 import SpriteKit
 import GameKit
 
-class BackgroundNode: SKSpriteNode {
+class BackgroundNode: SKSpriteNode, SKStateNode {
     
     var stateMachine: GKStateMachine?
     var physicGround: SKSpriteNode?

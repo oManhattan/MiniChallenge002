@@ -47,7 +47,6 @@ class BackgroundMovingState: GKState {
                 
                 if childName.contains("background") && child.position.x > node.frame.maxX {
                     let progress = node.progressBar?.progressPercent ?? 0
-                    print("Progress: \(progress)")
                     if progress > 0.75 {
                         child.texture = SKTexture(imageNamed: "Background3")
                     } else if progress <= 0.75 && progress > 0.50 {
@@ -66,7 +65,7 @@ class BackgroundMovingState: GKState {
                 // Verificar se o node vai sair da tela e reposicionar
                 let delta = child.frame.maxX - node.speed
                 if delta <= -10 {
-                    child.position.x = (node.size.width - (node.speed * 2)) * 2
+                    child.position.x = ((self.node.frame.maxX - 10) * 2) - node.speed
                 }
             }
         }
