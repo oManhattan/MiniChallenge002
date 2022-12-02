@@ -11,6 +11,7 @@ class GameScene: SKScene {
     
     let effectNode = SKEffectNode()
     private var life = 100.0
+    var backgroundSound = SKAudioNode(fileNamed: "teste.mp3")
     
     override init(size: CGSize) {
         let landscapeSize = CGSize.toLandscape(size)
@@ -70,7 +71,7 @@ class GameScene: SKScene {
         progressLabel.fontSize = 20
         progressLabel.position = CGPoint(x: self.frame.maxX - (progressLabel.frame.maxX * 1.5), y: self.frame.maxY - progressLabel.frame.maxY - 10)
         
-        self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel])
+        self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel, self.backgroundSound])
     }
     
     @objc func reduceLife(){
@@ -93,6 +94,12 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let player = self.childNode(withName: "player") as? PlayerNode else { return }
         player.stateMachine?.enter(PlayerJumpingState.self)
+        
+        //Função para parar o audio
+        backgroundSound.run(SKAction.stop())
+        
+        //Função para iniciar o audio
+        //backgroundSound.run(SKAction.play())
     }
 }
 

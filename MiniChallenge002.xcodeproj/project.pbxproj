@@ -24,6 +24,7 @@
 		31E7785A2937DD7C004C8E20 /* PlayerRuningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778592937DD7C004C8E20 /* PlayerRuningState.swift */; };
 		31E7785C2937DD8A004C8E20 /* PlayerJumpingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */; };
 		31E7785E2937DDA0004C8E20 /* PlayerPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */; };
+		F3840B80293980BF00A57E02 /* teste.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F3840B7F293980BF00A57E02 /* teste.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		31E778592937DD7C004C8E20 /* PlayerRuningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRuningState.swift; sourceTree = "<group>"; };
 		31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerJumpingState.swift; sourceTree = "<group>"; };
 		31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPauseState.swift; sourceTree = "<group>"; };
+		F3840B7F293980BF00A57E02 /* teste.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = teste.mp3; path = "../../../Music/Music/Media.localized/Music/Unknown Artist/Unknown Album/teste.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				31E778562937DD62004C8E20 /* PlayerNode */,
 				31E7784D2937B8BA004C8E20 /* BackgroundNode */,
 				31E7782F2937AED6004C8E20 /* GameScene.swift */,
+				F3840B7F293980BF00A57E02 /* teste.mp3 */,
 				31E778302937AED6004C8E20 /* Assets.xcassets */,
 			);
 			path = "MiniChallenge002 Shared";
@@ -196,6 +199,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3840B80293980BF00A57E02 /* teste.mp3 in Resources */,
 				31E7783E2937AED6004C8E20 /* Main.storyboard in Resources */,
 				31E778412937AED6004C8E20 /* LaunchScreen.storyboard in Resources */,
 				31E778452937AED6004C8E20 /* Assets.xcassets in Resources */,
