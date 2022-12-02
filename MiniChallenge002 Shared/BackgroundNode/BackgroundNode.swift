@@ -47,7 +47,7 @@ class BackgroundNode: SKSpriteNode {
             textureBackground.anchorPoint = .zero
             textureBackground.position.x = (frame.maxX * CGFloat(i)) - 10
             textureBackground.position.y = textureGround.frame.maxY - 15
-            textureBackground.zPosition = -3
+            textureBackground.zPosition = 0
             textureBackground.name = "background-\(i)"
             
             

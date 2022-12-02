@@ -12,6 +12,9 @@ class GameScene: SKScene {
     var elementGenerator: ElementNode?
     var timer: Timer?
     var distance = 0
+    let effectNode = SKEffectNode()
+    private var life = 100.0
+    var backgroundSound = SKAudioNode(fileNamed: "teste.mp3")
     
     override init(size: CGSize) {
         let landscapeSize = CGSize.toLandscape(size)
@@ -27,10 +30,23 @@ class GameScene: SKScene {
     }
     
     func setUpScene() {
+        
+        let backgroundImage: SKSpriteNode = .init(texture: SKTexture(image: UIImage(named: "BG")!), color: .clear, size: CGSize(width: size.width + 10, height: size.height))
+        backgroundImage.name = "backgroundImage"
+        backgroundImage.anchorPoint = .zero
+        backgroundImage.position.x = (frame.maxX * CGFloat(0)) - 10
+        backgroundImage.position.y = self.frame.minY
+        
+        effectNode.addChild(backgroundImage)
+        effectNode.zPosition = -5
+        addChild(effectNode)
+        
         let backgroundNode = BackgroundNode(size: self.size)
         backgroundNode.speed = self.speed
         backgroundNode.name = "background"
         backgroundNode.stateMachine?.enter(BackgroundMovingState.self)
+        
+        
         
         let playerNode = PlayerNode(size: self.size)
         playerNode.name = "player"
@@ -50,6 +66,8 @@ class GameScene: SKScene {
             print("Funcionou")
         }
         
+        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(reduceLife), userInfo: nil, repeats: true)
+        
         let progressBar = ProgressBarNode(size: self.size)
         progressBar.position = CGPoint(x: self.frame.minX + 20, y: self.frame.maxY - 10)
         progressBar.name = "progress-bar"
@@ -64,12 +82,19 @@ class GameScene: SKScene {
         _ = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(changeDistance), userInfo: nil, repeats: true)
         _ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressBar), userInfo: nil, repeats: true)
         
-        self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel])
+        self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel, self.backgroundSound])
         
         self.elementGenerator = ElementNode(scene: self)
         
         self.timer = Timer.scheduledTimer(timeInterval: 1.3, target: self, selector: #selector(generateElements), userInfo: nil, repeats: true)
         
+    }
+    
+    @objc func reduceLife(){
+        self.life -= 10
+        if life == 0 {
+            life = 100
+        }
     }
     
     override func didMove(to view: SKView) {
@@ -79,12 +104,19 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
-        
+        effectNode.filter = CIFilter(name: "CIColorControls")
+        effectNode.filter?.setValue(life/100, forKey: kCIInputSaturationKey)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let player = self.childNode(withName: "player") as? PlayerNode else { return }
         player.stateMachine?.enter(PlayerJumpingState.self)
+        
+        //Função para parar o audio
+        backgroundSound.run(SKAction.stop())
+        
+        //Função para iniciar o audio
+        //backgroundSound.run(SKAction.play())
     }
     
     @objc func generateElements() {
