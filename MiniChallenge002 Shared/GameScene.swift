@@ -18,6 +18,7 @@ class GameScene: SKScene {
         self.scaleMode = .resizeFill
         self.physicsWorld.contactDelegate = self
         self.physicsWorld.gravity = CGVector(dx: 0, dy: -9.8)
+        self.speed = 1.5
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,7 +27,7 @@ class GameScene: SKScene {
     
     func setUpScene() {
         let backgroundNode = BackgroundNode(size: self.size)
-        backgroundNode.speed = 2
+        backgroundNode.speed = self.speed
         backgroundNode.name = "background"
         backgroundNode.stateMachine?.enter(BackgroundMovingState.self)
         
@@ -59,8 +60,7 @@ class GameScene: SKScene {
         
         self.elementGenerator = ElementNode(scene: self)
         
-        self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(generateElements), userInfo: nil, repeats: true)
-        
+        self.timer = Timer.scheduledTimer(timeInterval: 1.3, target: self, selector: #selector(generateElements), userInfo: nil, repeats: true)
         
     }
     
@@ -79,7 +79,19 @@ class GameScene: SKScene {
     }
     
     @objc func generateElements() {
-        self.elementGenerator?.generatePattern01()
+//        DispatchQueue.main.async {
+            let patterns: [Int] = .init(1...3)
+            switch patterns.randomElement()! {
+            case 1:
+                self.elementGenerator?.generatePattern01()
+            case 2:
+                self.elementGenerator?.generatePattern02()
+            case 3:
+                self.elementGenerator?.generatePattern03()
+            default:
+                return
+            }
+//        }
     }
 }
 
