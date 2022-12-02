@@ -37,7 +37,28 @@ class BackgroundMovingState: GKState {
             
             for child in node.children {
                 // Verificar se o subnode possui nome e se é diferente de "phyisic-ground"
-                guard let child = child as? SKSpriteNode, let childName = child.name, childName != "physic-ground" else { continue }
+                guard let child = child as? SKSpriteNode,
+                      let childName = child.name,
+                      childName != "physic-ground",
+                      childName != "progress-bar"
+                else {
+                    continue
+                }
+                
+                if childName.contains("background") && child.position.x > node.frame.maxX {
+                    let progress = node.progressBar?.progressPercent ?? 0
+                    print("Progress: \(progress)")
+                    if progress > 0.75 {
+                        child.texture = SKTexture(imageNamed: "Background3")
+                    } else if progress <= 0.75 && progress > 0.50 {
+                        child.texture = SKTexture(imageNamed: "Background2")
+                    } else if progress <= 0.50 && progress > 0.25 {
+                        child.texture = SKTexture(imageNamed: "Background1")
+                    } else if progress <= 0.25 {
+                        child.texture = SKTexture(imageNamed: "Background0")
+                    }
+                }
+                
                 
                 // Subtrair a posição do subnode de acordo com a velocidade do node pai
                 child.position.x -= node.speed

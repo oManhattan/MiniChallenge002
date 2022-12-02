@@ -12,7 +12,6 @@ class GameScene: SKScene {
     var player: PlayerNode?
     var background: BackgroundNode?
     var configurationButton: SKButton<SKSpriteNode>?
-    var progressBar: ProgressBarNode?
     var progressLabel: SKLabelNode?
     var saturation = 0.0
     
@@ -74,10 +73,6 @@ class GameScene: SKScene {
         startButton.zPosition = 1
         startButton.name = "start-button"
         
-        let progressBar = ProgressBarNode(size: self.size)
-        progressBar.position = CGPoint(x: self.frame.minX + 20, y: self.frame.maxY - 10)
-        progressBar.name = "progress-bar"
-        
         let progressLabel = SKLabelNode(text: "\(distance)m")
         progressLabel.fontColor = UIColor(red: 0.173, green: 0.161, blue: 0.204, alpha: 1)
         progressLabel.fontName = "AvenirNext-Bold"
@@ -87,12 +82,11 @@ class GameScene: SKScene {
         progressLabel.position = CGPoint(x: self.frame.maxX - 40, y: self.frame.maxY - 20)
         progressLabel.name = "progress-label"
         
-        self.addChildren([backgroundNode, playerNode, configButton, startButton, progressBar, progressLabel, self.backgroundSound])
+        self.addChildren([backgroundNode, playerNode, configButton, startButton, progressLabel, self.backgroundSound])
         
         self.background = backgroundNode
         self.player = playerNode
         self.configurationButton = configButton
-        self.progressBar = progressBar
         self.progressLabel = progressLabel
         
         self.elementFactory = ElementFactory(scene: self)
@@ -124,12 +118,7 @@ class GameScene: SKScene {
     }
     
     @objc func generateElements() {
-//        guard let pattern = self.elementFactory?.pattern001(elementSize: <#T##CGSize#>, positionY: <#T##CGFloat#>) else {
-//            print("deu ruim")
-//            return
-//        }
-        
-//        guard let randomPattern = self.elementFactory?.patterns.randomElement() else { return }
+
         guard let randomPattern = self.elementFactory?.randomPattern() else { return }
         let action = SKAction.customAction(withDuration: 1/60) { node, _ in
             guard let elementName = node.name, elementName == "element" else {
@@ -144,8 +133,6 @@ class GameScene: SKScene {
         }
         self.addChildrenWithAction(randomPattern, action: action)
     }
-    
-    
 }
 
 extension GameScene: SKPhysicsContactDelegate {
@@ -158,15 +145,15 @@ extension GameScene: SKPhysicsContactDelegate {
         }
         
         if verifyContactObjects(nameA: "player", nameB: "element", contact: contact) {
-            if (self.progressBar?.progress?.size.width)! <= 0 {
+            if (self.background?.progressBar?.progress?.size.width)! <= 0 {
                 return
             }
             guard let element = getObject(name: "element", contact: contact) as? Element else { return }
             switch element.type {
             case .nature:
-                self.progressBar?.changeProgressSize(value: 20.0)
+                self.background?.progressBar?.changeProgressSize(value: 20.0)
             case .fire:
-                self.progressBar?.changeProgressSize(value: -20.0)
+                self.background?.progressBar?.changeProgressSize(value: -20.0)
             }
             element.removeFromParent()
             return
@@ -202,9 +189,9 @@ extension GameScene {
     }
     
     @objc func updateProgressBar(){
-        if (self.progressBar?.progress?.size.width)! > 0{
-            self.progressBar?.progress?.size.width -= 3
-            saturation = self.progressBar!.progress!.size.width / 1000
+        if (self.background?.progressBar?.progress?.size.width)! > 0{
+            self.background?.progressBar?.progress?.size.width -= 3
+            saturation = (self.background?.progressBar?.progress?.size.width ?? 0) / 1000
         }
     }
 }

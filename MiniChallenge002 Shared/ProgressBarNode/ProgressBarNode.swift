@@ -15,6 +15,9 @@ class ProgressBarNode: SKSpriteNode {
     var currentProgress: CGFloat {
         return progress?.size.width ?? 0
     }
+    var progressPercent: CGFloat {
+        return currentProgress / maxSize
+    }
     var maxSize: CGFloat
     
     init(size: CGSize) {
