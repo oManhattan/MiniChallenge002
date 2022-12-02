@@ -84,11 +84,22 @@ class GameScene: SKScene {
 }
 
 extension GameScene: SKPhysicsContactDelegate {
+    
+    
+    
     func didBegin(_ contact: SKPhysicsContact) {
         if verifyContactObjects(nameA: "player", nameB: "physic-ground", contact: contact) {
             guard let player = self.childNode(withName: "player") as? PlayerNode else { return }
             player.stateMachine?.enter(PlayerRuningState.self)
+            return
         }
+        
+        if verifyContactObjects(nameA: "player", nameB: "element", contact: contact) {
+            guard let element = getObject(name: "element", contact: contact) else { return }
+            element.removeFromParent()
+            return
+        }
+//        print("Object A: \(contact.bodyA.node?.name) | Object B: \(contact.bodyB.node?.name)")
     }
     
     func verifyContactObjects(nameA: String, nameB: String, contact: SKPhysicsContact) -> Bool {
@@ -97,5 +108,17 @@ extension GameScene: SKPhysicsContactDelegate {
             return true
         }
         return false
+    }
+    
+    func getObject(name: String, contact: SKPhysicsContact) -> SKSpriteNode? {
+        if contact.bodyA.node?.name == name {
+            return contact.bodyA.node as? SKSpriteNode
+        }
+        
+        if contact.bodyB.node?.name == name {
+            return contact.bodyB.node as? SKSpriteNode
+        }
+        
+        return nil
     }
 }

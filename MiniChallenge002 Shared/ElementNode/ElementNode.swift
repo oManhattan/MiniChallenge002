@@ -58,8 +58,11 @@ class ElementNode {
             element.name = "element"
             element.physicsBody = SKPhysicsBody(texture: element.texture!,
                                                 size: element.size)
+            element.physicsBody?.categoryBitMask = PhysicsCategory.moeda
             element.physicsBody?.affectedByGravity = false
             element.physicsBody?.isDynamic = false
+            element.physicsBody?.contactTestBitMask = PhysicsCategory.personagem
+
             
             scene.addChild(element)
             

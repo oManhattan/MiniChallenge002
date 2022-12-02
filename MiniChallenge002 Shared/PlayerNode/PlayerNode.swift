@@ -9,6 +9,12 @@ import Foundation
 import SpriteKit
 import GameKit
 
+struct PhysicsCategory {
+    static let personagem: UInt32 = 0x1 << 1
+    static let moeda: UInt32 = 0x1 << 2
+    static let chao: UInt32 = 0x1 << 3
+}
+
 class PlayerNode: SKSpriteNode {
     
     var stateMachine: GKStateMachine?
@@ -39,9 +45,12 @@ class PlayerNode: SKSpriteNode {
         physicsBody.allowsRotation = false
         physicsBody.affectedByGravity = true
         physicsBody.isDynamic = true
-        physicsBody.collisionBitMask = 0b0001
+        physicsBody.categoryBitMask = PhysicsCategory.personagem
+        physicsBody.collisionBitMask = PhysicsCategory.chao
         physicsBody.mass = 10
-        
+        physicsBody.contactTestBitMask = PhysicsCategory.moeda | PhysicsCategory.chao
+
+
         self.physicsBody = physicsBody
     }
 }
