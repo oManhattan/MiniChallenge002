@@ -56,7 +56,16 @@ extension SKSpriteNode {
 
 extension SKScene {
     func addChildren(_ children: [SKNode]) {
-        children.forEach({addChild($0)})
+        children.forEach{
+            addChild($0)
+        }
+    }
+    
+    func addChildrenWithAction(_ children: [SKNode], action: SKAction) {
+        children.forEach {
+            addChild($0)
+            $0.run(.repeatForever(action))
+        }
     }
 }
 

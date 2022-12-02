@@ -30,14 +30,14 @@ class BackgroundMovingState: GKState {
         node.removeAllActions()
         
         let action = SKAction.customAction(withDuration: 1 / 60) { node, _ in
-            guard let node = node as? BackgroundNode, let children = node.children as? [SKSpriteNode] else {
-                print("failed to convert")
+            guard let node = node as? BackgroundNode else {
+                print("Failed to convert SKNode to BackgroundNode")
                 return
             }
             
-            for child in children {
+            for child in node.children {
                 // Verificar se o subnode possui nome e se é diferente de "phyisic-ground"
-                guard let childName = child.name, childName != "physic-ground" else { continue }
+                guard let child = child as? SKSpriteNode, let childName = child.name, childName != "physic-ground" else { continue }
                 
                 // Subtrair a posição do subnode de acordo com a velocidade do node pai
                 child.position.x -= node.speed

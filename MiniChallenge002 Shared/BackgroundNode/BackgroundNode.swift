@@ -12,6 +12,9 @@ import GameKit
 class BackgroundNode: SKSpriteNode {
     
     var stateMachine: GKStateMachine?
+    var physicGround: SKSpriteNode?
+    var backgroundSky: SKSpriteNode?
+    var effectNode: SKEffectNode?
     
     init(size: CGSize) {
         super.init(texture: nil, color: .clear, size: size)
@@ -50,8 +53,6 @@ class BackgroundNode: SKSpriteNode {
             textureBackground.zPosition = -2
             textureBackground.name = "background-\(i)"
             
-            
-            
             // Adicionando os nodes criados
             self.addChildren([textureGround, textureBackground])
         }
@@ -73,7 +74,21 @@ class BackgroundNode: SKSpriteNode {
         physicsGround.physicsBody?.collisionBitMask = PhysicsCategory.personagem
         physicsGround.name = "physic-ground"
         
-        // Adicionando o node criado
-        self.addChild(physicsGround)
+        let backgroundImage: SKSpriteNode = .init(texture: SKTexture(image: UIImage(named: "BG")!), color: .clear, size: CGSize(width: size.width + 10, height: size.height))
+        backgroundImage.name = "backgroundImage"
+        backgroundImage.anchorPoint = .zero
+        backgroundImage.position.x = (frame.maxX * CGFloat(0)) - 10
+        backgroundImage.position.y = self.frame.minY
+        backgroundImage.zPosition = -5
+        
+        let effetctNode = SKEffectNode()
+        effetctNode.zPosition = -5
+        effetctNode.addChild(backgroundImage)
+        
+        self.addChildren([physicsGround, effetctNode])
+        
+        self.effectNode = effetctNode
+        self.backgroundSky = backgroundImage
+        self.physicGround = physicsGround
     }
 }
