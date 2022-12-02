@@ -9,6 +9,9 @@ import SpriteKit
 
 class GameScene: SKScene {
     
+    let effectNode = SKEffectNode()
+    private var life = 100.0
+    
     override init(size: CGSize) {
         let landscapeSize = CGSize.toLandscape(size)
         super.init(size: landscapeSize)
@@ -22,10 +25,23 @@ class GameScene: SKScene {
     }
     
     func setUpScene() {
+        
+        let backgroundImage: SKSpriteNode = .init(texture: SKTexture(image: UIImage(named: "BG")!), color: .clear, size: CGSize(width: size.width + 10, height: size.height))
+        backgroundImage.name = "backgroundImage"
+        backgroundImage.anchorPoint = .zero
+        backgroundImage.position.x = (frame.maxX * CGFloat(0)) - 10
+        backgroundImage.position.y = self.frame.minY
+        
+        effectNode.addChild(backgroundImage)
+        effectNode.zPosition = -5
+        addChild(effectNode)
+        
         let backgroundNode = BackgroundNode(size: self.size)
         backgroundNode.speed = 2
         backgroundNode.name = "background"
         backgroundNode.stateMachine?.enter(BackgroundMovingState.self)
+        
+        
         
         let playerNode = PlayerNode(size: self.size)
         playerNode.name = "player"
@@ -45,6 +61,8 @@ class GameScene: SKScene {
             print("Funcionou")
         }
         
+        _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(reduceLife), userInfo: nil, repeats: true)
+        
         let progressBar = ProgressBarNode(size: self.size)
         progressBar.position = CGPoint(x: self.frame.minX + 20, y: self.frame.maxY - 10)
         
@@ -55,12 +73,21 @@ class GameScene: SKScene {
         self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel])
     }
     
+    @objc func reduceLife(){
+        self.life -= 10
+        if life == 0 {
+            life = 100
+        }
+    }
+    
     override func didMove(to view: SKView) {
         self.setUpScene()
     }
 
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
+        effectNode.filter = CIFilter(name: "CIColorControls")
+        effectNode.filter?.setValue(life/100, forKey: kCIInputSaturationKey)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
