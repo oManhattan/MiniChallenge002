@@ -11,7 +11,7 @@ class GameScene: SKScene {
     
     var player: PlayerNode?
     var background: BackgroundNode?
-    var configurationButton: SKButton?
+    var configurationButton: SKButton<SKSpriteNode>?
     var progressBar: ProgressBarNode?
     var progressLabel: SKLabelNode?
     
@@ -51,30 +51,42 @@ class GameScene: SKScene {
         playerNode.position.y = backgroundNode.childNode(withName: "physic-ground")!.frame.maxY + 100
         playerNode.stateMachine?.enter(PlayerRuningState.self)
         
-        let configButton = SKButton(
-            texture: SKTexture(imageNamed: "ConfigButton"),
-            color: .clear,
-            size: CGSize(width: self.size.height * 0.15, height: self.size.height * 0.15))
-        configButton.anchorPoint = .zero
-        configButton.position = CGPoint(x: 20, y: 10)
-        configButton.zPosition = 1
-        configButton.name = "configuration-button"
-        configButton.action = {
+        let configButton = SKButton<SKSpriteNode>(
+            content: SKSpriteNode(
+                texture: SKTexture(imageNamed: "ConfigButton"),
+                color: .clear,
+                size: CGSize(width: self.size.height * 0.15, height: self.size.height * 0.15)),
+        action: {
             print("Funcionou")
-        }
+        })
+        configButton.position.x = self.frame.minX + (configButton.content.size.width * 0.5) + 10
+        configButton.position.y = self.frame.minY + (configButton.content.size.height * 0.5) + 10
+        configButton.zPosition = 2
+        
+        let startButton = SKButton<SKLabelNode>(
+            content: SKLabelNode(text: "Toque para começar"),
+            action: {
+                print("começou")
+            })
+        startButton.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        startButton.content.fontName = "AvenirNext-Bold"
+        startButton.zPosition = 1
+        startButton.name = "start-button"
         
         let progressBar = ProgressBarNode(size: self.size)
         progressBar.position = CGPoint(x: self.frame.minX + 20, y: self.frame.maxY - 10)
         progressBar.name = "progress-bar"
         
         let progressLabel = SKLabelNode(text: "\(distance)m")
+        progressLabel.fontColor = UIColor(red: 0.173, green: 0.161, blue: 0.204, alpha: 1)
+        progressLabel.fontName = "AvenirNext-Bold"
         progressLabel.verticalAlignmentMode = .top
         progressLabel.horizontalAlignmentMode = .right
         progressLabel.fontSize = 20
         progressLabel.position = CGPoint(x: self.frame.maxX - 40, y: self.frame.maxY - 20)
         progressLabel.name = "progress-label"
         
-        self.addChildren([backgroundNode, playerNode, configButton, progressBar, progressLabel, self.backgroundSound])
+        self.addChildren([backgroundNode, playerNode, configButton, startButton, progressBar, progressLabel, self.backgroundSound])
         
         self.background = backgroundNode
         self.player = playerNode

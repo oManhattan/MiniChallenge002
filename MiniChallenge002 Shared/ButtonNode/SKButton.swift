@@ -7,15 +7,18 @@
 
 import Foundation
 import SpriteKit
-import GameKit
 
-class SKButton: SKSpriteNode {
+class SKButton<T:SKNode>: SKNode{
     
     var action: (() -> Void)?
+    var content: T
     
-    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-        super.init(texture: texture, color: color, size: size)
+    init(content: T, action: @escaping () -> Void) {
+        self.content = content
+        self.action = action
+        super.init()
         self.isUserInteractionEnabled = true
+        self.addChild(content)
     }
     
     required init?(coder aDecoder: NSCoder) {
