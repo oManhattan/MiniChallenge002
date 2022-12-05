@@ -11,19 +11,20 @@ class GameScene: SKScene {
     
     var player: PlayerNode?
     var background: BackgroundNode?
+    var startButton: SKButton<SKSpriteNode>?
     var configurationButton: SKButton<SKSpriteNode>?
     var progressLabel: SKLabelNode?
-    var saturation = 0.0
     
     var elementFactory: ElementFactory?
-    
+    var saturation = 0.0
     var distance = 0
     var life = 100.0
     
     var backgroundSound = SKAudioNode(fileNamed: "teste.mp3")
     
-    var elementTimer: Timer?
-    var lifeBarTimer: Timer?
+    var elementTimer: GameTimer?
+    var progressBarTimer: GameTimer?
+    var distanceCounterTimer: GameTimer?
     
     override init(size: CGSize) {
         let landscapeSize = CGSize.toLandscape(size)
@@ -43,33 +44,41 @@ class GameScene: SKScene {
         let backgroundNode = BackgroundNode(size: self.size)
         backgroundNode.speed = self.speed
         backgroundNode.name = "background"
-        backgroundNode.stateMachine?.enter(BackgroundMovingState.self)
+        backgroundNode.stateMachine?.enter(BackgroundPauseState.self)
         
         let playerNode = PlayerNode(size: self.size)
-        playerNode.name = "player"
         playerNode.position.x = self.frame.minX + 150
         playerNode.position.y = backgroundNode.childNode(withName: "physic-ground")!.frame.maxY + 100
-        playerNode.stateMachine?.enter(PlayerRuningState.self)
+        playerNode.name = "player"
+        playerNode.stateMachine?.enter(PlayerPauseState.self)
         
         let configButton = SKButton<SKSpriteNode>(
             content: SKSpriteNode(
                 texture: SKTexture(imageNamed: "ConfigButton"),
                 color: .clear,
                 size: CGSize(width: self.size.height * 0.15, height: self.size.height * 0.15)),
-        action: {
-            print("Funcionou")
-        })
+            action: {
+                self.pauseGame()
+                self.buildConfigurationMenu()
+            })
         configButton.position.x = self.frame.minX + (configButton.content.size.width * 0.5) + 10
         configButton.position.y = self.frame.minY + (configButton.content.size.height * 0.5) + 10
         configButton.zPosition = 2
+        configButton.name = "configuration-button"
         
-        let startButton = SKButton<SKLabelNode>(
-            content: SKLabelNode(text: "Toque para começar"),
+        let startButton = SKButton<SKSpriteNode>(
+            content: {
+                let background = SKSpriteNode(texture: nil, color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.3), size: self.size)
+                let label = SKLabelNode(text: "Toque para começar")
+                label.fontName = "AvenirNext-Bold"
+                background.addChild(label)
+                return background
+            }(),
             action: {
-                print("começou")
+                self.resumeGame()
+                self.startButton?.removeFromParent()
             })
         startButton.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        startButton.content.fontName = "AvenirNext-Bold"
         startButton.zPosition = 1
         startButton.name = "start-button"
         
@@ -82,26 +91,88 @@ class GameScene: SKScene {
         progressLabel.position = CGPoint(x: self.frame.maxX - 40, y: self.frame.maxY - 20)
         progressLabel.name = "progress-label"
         
-        self.addChildren([backgroundNode, playerNode, configButton, progressLabel, self.backgroundSound])
+        self.addChildren([backgroundNode,
+                          playerNode,
+                          configButton,
+                          startButton,
+                          progressLabel,
+                          self.backgroundSound])
         
         self.background = backgroundNode
         self.player = playerNode
         self.configurationButton = configButton
+        self.startButton = startButton
         self.progressLabel = progressLabel
         
         self.elementFactory = ElementFactory(scene: self)
-        self.elementTimer = Timer.scheduledTimer(timeInterval: 1.3, target: self, selector: #selector(generateElements), userInfo: nil, repeats: true)
         
-        _ = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(changeDistance), userInfo: nil, repeats: true)
-        _ = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateProgressBar), userInfo: nil, repeats: true)
+        self.elementTimer = GameTimer(startValue: 1.3, action: {
+            guard let randomPattern = self.elementFactory?.randomPattern() else { return }
+            self.addChildrenWithAction(randomPattern, state: ElementMovingState.self)
+        })
+        
+        self.distanceCounterTimer = GameTimer(startValue: 0.2, action: {
+            self.distance += 1
+            self.progressLabel?.text = "\(self.distance)m"
+        })
+        
+        self.progressBarTimer = GameTimer(startValue: 0.1, action: {
+            if (self.background?.progressBar?.progress?.size.width)! > 0{
+                self.background?.progressBar?.progress?.size.width -= 3
+                self.saturation = (self.background?.progressBar?.progress?.size.width ?? 0) / 1000
+            }
+        })
     }
+    
+    func buildConfigurationMenu() {
+        let menu = SKSpriteNode(texture: SKTexture(imageNamed: "PopUp"), color: .clear, size: CGSize(width: self.size.width * 0.8, height: self.size.height * 0.8))
+        menu.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        menu.zPosition = 4
+        
+        let closeButton = SKButton<SKSpriteNode>(content: {
+            let button = SKSpriteNode(texture: SKTexture(imageNamed: "LeaveButton"), color: .clear, size: CGSize(width: self.size.height * 0.15, height: self.size.height * 0.15))
+            button.zPosition = 5
+            return button
+        }()) {
+            self.resumeGame()
+            menu.removeFromParent()
+        }
+        menu.addChild(closeButton)
+        self.addChild(menu)
+    }
+    
+    func pauseGame() {
+        self.background?.stateMachine?.enter(BackgroundPauseState.self)
+        self.player?.stateMachine?.enter(PlayerPauseState.self)
+        self.elementTimer?.pause()
+        self.progressBarTimer?.pause()
+        self.distanceCounterTimer?.pause()
+        
+        for child in self.children {
+            guard let child = child as? Element else { continue }
+            child.stateMachine?.enter(ElementPauseState.self)
+        }
+    }
+    
+    func resumeGame() {
+        self.background?.stateMachine?.enter(BackgroundMovingState.self)
+        self.player?.stateMachine?.enter(PlayerRuningState.self)
+        self.elementTimer?.start()
+        self.progressBarTimer?.start()
+        self.distanceCounterTimer?.start()
+        
+        for child in self.children {
+            guard let child = child as? Element else { continue }
+            child.stateMachine?.enter(ElementMovingState.self)
+        }
+    }
+    
     
     override func didMove(to view: SKView) {
         self.setUpScene()
     }
     
     override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
         background?.effectNode?.filter = CIFilter(name: "CIColorControls")
         background?.effectNode?.filter?.setValue(saturation, forKey: kCIInputSaturationKey)
     }
@@ -117,10 +188,6 @@ class GameScene: SKScene {
         //backgroundSound.run(SKAction.play())
     }
     
-    @objc func generateElements() {
-        guard let randomPattern = self.elementFactory?.randomPattern() else { return }
-        self.addChildrenWithAction(randomPattern, state: ElementMovingState.self)
-    }
 }
 
 extension GameScene: SKPhysicsContactDelegate {
@@ -133,16 +200,14 @@ extension GameScene: SKPhysicsContactDelegate {
         }
         
         if verifyContactObjects(nameA: "player", nameB: "element", contact: contact) {
-            if (self.background?.progressBar?.progress?.size.width)! <= 0 {
-                return
-            }
+            if (self.background?.progressBar?.progress?.size.width)! <= 0 { return }
             guard let element = getObject(name: "element", contact: contact) as? Element else { return }
-            guard let maxSize = self.background?.progressBar?.maxSize else { return }
+            guard let damageBase = self.background?.progressBar?.maxSize else { return }
             switch element.type {
             case .nature:
-                self.background?.progressBar?.changeProgressSize(value: maxSize * 0.05)
+                self.background?.progressBar?.addProgress(value: damageBase * 0.05)
             case .fire:
-                self.background?.progressBar?.changeProgressSize(value: -(maxSize * 0.07))
+                self.background?.progressBar?.removeProgress(value: damageBase * 0.05)
             }
             element.removeFromParent()
             return
@@ -170,17 +235,3 @@ extension GameScene: SKPhysicsContactDelegate {
     }
 }
 
-extension GameScene {
-    
-    @objc func changeDistance() {
-        self.distance += 1
-        self.progressLabel?.text = "\(self.distance)m"
-    }
-    
-    @objc func updateProgressBar(){
-        if (self.background?.progressBar?.progress?.size.width)! > 0{
-            self.background?.progressBar?.progress?.size.width -= 3
-            saturation = (self.background?.progressBar?.progress?.size.width ?? 0) / 1000
-        }
-    }
-}

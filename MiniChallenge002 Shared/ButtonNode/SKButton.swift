@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-class SKButton<T:SKNode>: SKNode{
+class SKButton<T>: SKNode where T: SKNode{
     
     var action: (() -> Void)?
     var content: T

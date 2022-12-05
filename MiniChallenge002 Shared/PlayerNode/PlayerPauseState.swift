@@ -27,5 +27,11 @@ class PlayerPauseState: GKState {
     
     override func didEnter(from previousState: GKState?) {
         node.removeAllActions()
+        guard let player = self.node as? PlayerNode else {
+            print("failed to convert player node")
+            return
+        }
+        player.physicsBody?.isResting = true
+        player.physicsBody?.affectedByGravity = false
     }
 }

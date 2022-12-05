@@ -32,7 +32,7 @@ class PlayerRuningState: GKState {
             print("failed to convert player node")
             return
         }
-        
+        player.physicsBody?.affectedByGravity = true
         player.run(.repeatForever(.animate(with: .init(format: "MovingChar%@", frameCount: 0...1), timePerFrame: 0.1)))
     }
 }

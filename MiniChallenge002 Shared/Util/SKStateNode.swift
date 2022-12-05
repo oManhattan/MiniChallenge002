@@ -10,6 +10,5 @@ import SpriteKit
 import GameKit
 
 protocol SKStateNode: SKSpriteNode {
-    
     var stateMachine: GKStateMachine? { get }
 }

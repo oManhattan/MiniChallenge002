@@ -49,14 +49,17 @@ class ProgressBarNode: SKSpriteNode {
         fatalError("NSCoder not supported")
     }
     
-    func changeProgressSize(value: CGFloat) {
-        
-        if self.currentProgress + value < 0 {
+    func removeProgress(value: CGFloat) {
+        if self.currentProgress - value <= 0 {
             self.progress?.size.width = 0
             return
         }
         
-        if self.currentProgress + value > self.maxSize {
+        self.progress?.size.width -= value
+    }
+    
+    func addProgress(value: CGFloat) {
+        if self.currentProgress + value >= self.maxSize {
             self.progress?.size.width = self.maxSize
             return
         }

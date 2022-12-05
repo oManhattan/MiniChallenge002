@@ -30,6 +30,8 @@
 		31E7785A2937DD7C004C8E20 /* PlayerRuningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778592937DD7C004C8E20 /* PlayerRuningState.swift */; };
 		31E7785C2937DD8A004C8E20 /* PlayerJumpingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */; };
 		31E7785E2937DDA0004C8E20 /* PlayerPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */; };
+		31F3EFF6293CE3590020907E /* GameTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3EFF5293CE3590020907E /* GameTimer.swift */; };
+		31F3EFF8293CE7030020907E /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3EFF7293CE7030020907E /* PhysicsCategory.swift */; };
 		88F3A32429390EF600561FED /* ElementFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F3A32329390EF600561FED /* ElementFactory.swift */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,8 @@
 		31E778592937DD7C004C8E20 /* PlayerRuningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRuningState.swift; sourceTree = "<group>"; };
 		31E7785B2937DD8A004C8E20 /* PlayerJumpingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerJumpingState.swift; sourceTree = "<group>"; };
 		31E7785D2937DDA0004C8E20 /* PlayerPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerPauseState.swift; sourceTree = "<group>"; };
+		31F3EFF5293CE3590020907E /* GameTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameTimer.swift; sourceTree = "<group>"; };
+		31F3EFF7293CE7030020907E /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
 		88F3A32329390EF600561FED /* ElementFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,12 +104,12 @@
 		31E7782C2937AED6004C8E20 /* MiniChallenge002 Shared */ = {
 			isa = PBXGroup;
 			children = (
+				31F3EFF4293CE3370020907E /* Util */,
 				88F3A32229390EC500561FED /* ElementNode */,
 				317F7CE0293829340086EB94 /* ProgressBarNode */,
 				317F7CDD293823DB0086EB94 /* ButtonNode */,
 				31E778562937DD62004C8E20 /* PlayerNode */,
 				31E7784D2937B8BA004C8E20 /* BackgroundNode */,
-				3131D7D4293A8F40008E2E19 /* SKStateNode.swift */,
 				31E7782F2937AED6004C8E20 /* GameScene.swift */,
 				3131D7CA29399CD6008E2E19 /* teste.mp3 */,
 				31E778302937AED6004C8E20 /* Assets.xcassets */,
@@ -155,14 +159,24 @@
 			path = PlayerNode;
 			sourceTree = "<group>";
 		};
+		31F3EFF4293CE3370020907E /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				3131D7D4293A8F40008E2E19 /* SKStateNode.swift */,
+				31F3EFF5293CE3590020907E /* GameTimer.swift */,
+				31F3EFF7293CE7030020907E /* PhysicsCategory.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
 		88F3A32229390EC500561FED /* ElementNode */ = {
 			isa = PBXGroup;
 			children = (
-				88F3A32329390EF600561FED /* ElementFactory.swift */,
 				3131D7CC29399E54008E2E19 /* Element.swift */,
 				3131D7CE293A34AD008E2E19 /* ElementType.swift */,
 				3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */,
 				3131D7D2293A8E21008E2E19 /* ElementPauseState.swift */,
+				88F3A32329390EF600561FED /* ElementFactory.swift */,
 			);
 			path = ElementNode;
 			sourceTree = "<group>";
@@ -244,6 +258,7 @@
 				31E778442937AED6004C8E20 /* GameScene.swift in Sources */,
 				31E778582937DD71004C8E20 /* PlayerNode.swift in Sources */,
 				31E7785A2937DD7C004C8E20 /* PlayerRuningState.swift in Sources */,
+				31F3EFF8293CE7030020907E /* PhysicsCategory.swift in Sources */,
 				317F7CE2293829470086EB94 /* ProgressBarNode.swift in Sources */,
 				3131D7D3293A8E21008E2E19 /* ElementPauseState.swift in Sources */,
 				31E7785C2937DD8A004C8E20 /* PlayerJumpingState.swift in Sources */,
@@ -256,6 +271,7 @@
 				31E778392937AED6004C8E20 /* AppDelegate.swift in Sources */,
 				88F3A32429390EF600561FED /* ElementFactory.swift in Sources */,
 				31E778532937B995004C8E20 /* BackgroundPauseState.swift in Sources */,
+				31F3EFF6293CE3590020907E /* GameTimer.swift in Sources */,
 				3131D7D5293A8F40008E2E19 /* SKStateNode.swift in Sources */,
 				31E7784F2937B95B004C8E20 /* BackgroundNode.swift in Sources */,
 				317F7CDF293823E90086EB94 /* SKButton.swift in Sources */,
@@ -402,6 +418,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KFCLN3TFTY;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Last Leaf";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -435,6 +452,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = KFCLN3TFTY;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Last Leaf";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
