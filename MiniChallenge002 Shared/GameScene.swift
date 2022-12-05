@@ -20,7 +20,7 @@ class GameScene: SKScene {
     var distance = 0
     var life = 100.0
     
-    var backgroundSound = SKAudioNode(fileNamed: "teste.mp3")
+//    var backgroundSound = SKAudioNode(fileNamed: "teste.mp3")
     
     var elementTimer: GameTimer?
     var progressBarTimer: GameTimer?
@@ -96,8 +96,7 @@ class GameScene: SKScene {
                           playerNode,
                           configButton,
                           startButton,
-                          progressLabel,
-                          self.backgroundSound])
+                          progressLabel])
         
         self.background = backgroundNode
         self.player = playerNode
@@ -188,18 +187,61 @@ class GameScene: SKScene {
             UserDefaults.standard.set(self.distance, forKey: "best-point")
         }
         
+        let menu = SKSpriteNode(texture: SKTexture(imageNamed: "PopUp"), color: .clear, size: CGSize(width: self.size.width * 0.8, height: self.size.height * 0.8))
+        menu.aspectFillToSize(fillSize: CGSize(width: self.size.width * 0.8, height: self.size.height * 0.8))
+        menu.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        menu.zPosition = 4
+        menu.name = "menu"
+        
+        let menuTitle = SKLabelNode(text: "Fim de Jogo")
+        menuTitle.position.y = menu.frame.maxY
+        menuTitle.zPosition = 6
+        
         let pointsTitle = SKLabelNode(text: "Pontuação")
+        pointsTitle.position.y = menuTitle.frame.minY - pointsTitle.fontSize
+        pointsTitle.zPosition = 6
+        
         let points = SKLabelNode(text: "\(self.distance)")
+        points.position.y = pointsTitle.frame.minY - 10
+        points.zPosition = 6
+        
         let bestPointTitle = SKLabelNode(text: "Melhor Pontuação")
+        bestPointTitle.zPosition = 6
+        
         let bestPointLabel = SKLabelNode(text: "\(bestPoint > self.distance ? bestPoint : self.distance)")
+        bestPointLabel.zPosition = 6
         
-        buildConfigurationMenu()
-        guard let menu = self.childNode(withName: "menu") as? SKSpriteNode else { return }
+        let newGameButton = SKButton<SKSpriteNode>(content: {
+            let title = SKLabelNode(text: "Começar novo jogo")
+            title.fontName = "AvenirNext-Bold"
+            title.verticalAlignmentMode = .center
+            title.horizontalAlignmentMode = .center
+            
+            let button = SKSpriteNode(texture: nil, color: UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1), size: CGSize(width: title.frame.size.width * 1.2, height: title.frame.size.height * 1.5))
+            button.position.y = 0
+            button.addChild(title)
+            
+            return button
+        }()) {
+            print("Estou funcionando")
+            
+            menu.removeFromParent()
+            
+            self.distance = 0
+            self.progressLabel?.text = "\(self.distance)"
+            self.background?.progressBar?.progress?.size.width = self.background?.progressBar?.maxSize ?? 1000
+            self.background?.stateMachine?.enter(BackgroundMovingState.self)
+            self.player?.stateMachine?.enter(PlayerRuningState.self)
+            self.elementTimer?.start()
+            self.progressBarTimer?.start()
+            self.distanceCounterTimer?.start()
+            
+        }
+        newGameButton.zPosition = 6
+        newGameButton.position.y = menu.frame.minY
         
-        pointsTitle.position = CGPoint(x: menu.frame.minX, y: menu.frame.maxY)
-        points.position = CGPoint(x: menu.frame.minX, y: pointsTitle.position.y - points.fontSize * 2)
-        
-        menu.addChildren([pointsTitle, points])
+        menu.addChildren([menuTitle, pointsTitle, newGameButton])
+        self.addChildren([menu])
     }
     
     override func didMove(to view: SKView) {
@@ -207,6 +249,16 @@ class GameScene: SKScene {
     }
     
     override func update(_ currentTime: TimeInterval) {
+        
+        if childNode(withName: "menu") != nil {
+            return
+        }
+        
+        if (self.background?.progressBar?.progress?.size.width)! <= 0 {
+            gameOver()
+            return
+        }
+        
         background?.effectNode?.filter = CIFilter(name: "CIColorControls")
         background?.effectNode?.filter?.setValue(saturation, forKey: kCIInputSaturationKey)
     }
@@ -216,7 +268,6 @@ class GameScene: SKScene {
         player.stateMachine?.enter(PlayerJumpingState.self)
         
         //Função para parar o audio
-        backgroundSound.run(SKAction.stop())
         
         //Função para iniciar o audio
         //backgroundSound.run(SKAction.play())
@@ -234,10 +285,6 @@ extension GameScene: SKPhysicsContactDelegate {
         }
         
         if verifyContactObjects(nameA: "player", nameB: "element", contact: contact) {
-            if (self.background?.progressBar?.progress?.size.width)! <= 0 {
-                gameOver()
-                return
-            }
             guard let element = getObject(name: "element", contact: contact) as? Element else { return }
             guard let damageBase = self.background?.progressBar?.maxSize else { return }
             switch element.type {
