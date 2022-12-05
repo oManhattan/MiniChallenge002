@@ -193,23 +193,6 @@ class GameScene: SKScene {
         menu.zPosition = 4
         menu.name = "menu"
         
-        let menuTitle = SKLabelNode(text: "Fim de Jogo")
-        menuTitle.position.y = menu.frame.maxY
-        menuTitle.zPosition = 6
-        
-        let pointsTitle = SKLabelNode(text: "Pontuação")
-        pointsTitle.position.y = menuTitle.frame.minY - pointsTitle.fontSize
-        pointsTitle.zPosition = 6
-        
-        let points = SKLabelNode(text: "\(self.distance)")
-        points.position.y = pointsTitle.frame.minY - 10
-        points.zPosition = 6
-        
-        let bestPointTitle = SKLabelNode(text: "Melhor Pontuação")
-        bestPointTitle.zPosition = 6
-        
-        let bestPointLabel = SKLabelNode(text: "\(bestPoint > self.distance ? bestPoint : self.distance)")
-        bestPointLabel.zPosition = 6
         
         let newGameButton = SKButton<SKSpriteNode>(content: {
             let title = SKLabelNode(text: "Começar novo jogo")
@@ -223,7 +206,6 @@ class GameScene: SKScene {
             
             return button
         }()) {
-            print("Estou funcionando")
             
             menu.removeFromParent()
             
@@ -238,9 +220,37 @@ class GameScene: SKScene {
             
         }
         newGameButton.zPosition = 6
-        newGameButton.position.y = menu.frame.minY
+        newGameButton.position.y = -menu.frame.midY * 0.75
         
-        menu.addChildren([menuTitle, pointsTitle, newGameButton])
+        let bestPointLabel = SKLabelNode(text: "\(bestPoint > self.distance ? bestPoint : self.distance)")
+        bestPointLabel.fontName = "AvenirNext-Bold"
+        bestPointLabel.verticalAlignmentMode = .bottom
+        bestPointLabel.horizontalAlignmentMode = .center
+        bestPointLabel.position.y = newGameButton.frame.maxY + (bestPointLabel.frame.height * 2)
+        bestPointLabel.zPosition = 6
+        
+        let bestPointTitle = SKLabelNode(text: "Melhor Pontuação")
+        bestPointTitle.fontName = "AvenirNext-Bold"
+        bestPointTitle.verticalAlignmentMode = .bottom
+        bestPointTitle.horizontalAlignmentMode = .center
+        bestPointTitle.position.y = bestPointLabel.frame.maxY + bestPointTitle.frame.height * 2
+        bestPointTitle.zPosition = 6
+        
+        let menuTitle = SKLabelNode(text: "Fim de Jogo")
+        menuTitle.position.y = menu.frame.maxY
+        menuTitle.zPosition = 6
+        
+        let pointsTitle = SKLabelNode(text: "Pontuação")
+        pointsTitle.position.y = menuTitle.frame.minY - pointsTitle.fontSize
+        pointsTitle.zPosition = 6
+        
+        let points = SKLabelNode(text: "\(self.distance)")
+        points.position.y = pointsTitle.frame.minY - 10
+        points.zPosition = 6
+        
+        
+        
+        menu.addChildren([menuTitle, bestPointLabel, bestPointTitle, pointsTitle, newGameButton])
         self.addChildren([menu])
     }
     
