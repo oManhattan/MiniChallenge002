@@ -34,7 +34,7 @@ class ProgressBarNode: SKSpriteNode {
         self.aspectFillToSize(fillSize: CGSize(width: size.width * 0.33, height: size.height * 0.13))
         
         self.maxSize = self.frame.width * 2.72
-        let progressBar = SKSpriteNode(texture: nil, color: .green, size: CGSize(width: self.maxSize, height: self.frame.height))
+        let progressBar = SKSpriteNode(texture: nil, color: UIColor(red: 0.443, green: 0.557, blue: 0.412, alpha: 1), size: CGSize(width: self.maxSize, height: self.frame.height))
         progressBar.anchorPoint = CGPoint(x: 0, y: 1)
         progressBar.position.x = self.frame.maxX * 0.3
         progressBar.position.y = self.frame.minY - 5

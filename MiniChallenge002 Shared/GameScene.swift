@@ -60,6 +60,7 @@ class GameScene: SKScene {
             action: {
                 self.pauseGame()
                 self.buildConfigurationMenu()
+                self.configurationButton?.isUserInteractionEnabled = false
             })
         configButton.position.x = self.frame.minX + (configButton.content.size.width * 0.5) + 10
         configButton.position.y = self.frame.minY + (configButton.content.size.height * 0.5) + 10
@@ -126,17 +127,19 @@ class GameScene: SKScene {
     
     func buildConfigurationMenu() {
         let menu = SKSpriteNode(texture: SKTexture(imageNamed: "PopUp"), color: .clear, size: CGSize(width: self.size.width * 0.8, height: self.size.height * 0.8))
+        menu.aspectFillToSize(fillSize: CGSize(width: self.size.width * 0.8, height: self.size.height * 0.8))
         menu.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         menu.zPosition = 4
+        menu.name = "menu"
         
-        let closeButton = SKButton<SKSpriteNode>(content: {
-            let button = SKSpriteNode(texture: SKTexture(imageNamed: "LeaveButton"), color: .clear, size: CGSize(width: self.size.height * 0.15, height: self.size.height * 0.15))
-            button.zPosition = 5
-            return button
-        }()) {
+        let closeButton = SKButton<SKSpriteNode>(content: SKSpriteNode(texture: SKTexture(imageNamed: "LeaveButton"), color: .red, size: CGSize(width: menu.size.height * 0.3, height: menu.size.height * 0.3))) {
             self.resumeGame()
             menu.removeFromParent()
+            self.configurationButton?.isUserInteractionEnabled = true
         }
+        closeButton.position.x = menu.frame.maxX * 0.6
+        closeButton.position.y = menu.frame.maxY * 0.6
+        closeButton.zPosition = 5
         menu.addChild(closeButton)
         self.addChild(menu)
     }
@@ -167,6 +170,37 @@ class GameScene: SKScene {
         }
     }
     
+    func gameOver() {
+        self.background?.stateMachine?.enter(BackgroundPauseState.self)
+        self.player?.stateMachine?.enter(PlayerPauseState.self)
+        self.elementTimer?.pause()
+        self.progressBarTimer?.pause()
+        self.distanceCounterTimer?.pause()
+        
+        for child in self.children {
+            guard let child = child as? Element else { continue }
+            child.removeAllActions()
+            child.removeFromParent()
+        }
+        
+        let bestPoint = UserDefaults.standard.integer(forKey: "best-point")
+        if bestPoint < self.distance {
+            UserDefaults.standard.set(self.distance, forKey: "best-point")
+        }
+        
+        let pointsTitle = SKLabelNode(text: "Pontuação")
+        let points = SKLabelNode(text: "\(self.distance)")
+        let bestPointTitle = SKLabelNode(text: "Melhor Pontuação")
+        let bestPointLabel = SKLabelNode(text: "\(bestPoint > self.distance ? bestPoint : self.distance)")
+        
+        buildConfigurationMenu()
+        guard let menu = self.childNode(withName: "menu") as? SKSpriteNode else { return }
+        
+        pointsTitle.position = CGPoint(x: menu.frame.minX, y: menu.frame.maxY)
+        points.position = CGPoint(x: menu.frame.minX, y: pointsTitle.position.y - points.fontSize * 2)
+        
+        menu.addChildren([pointsTitle, points])
+    }
     
     override func didMove(to view: SKView) {
         self.setUpScene()
@@ -200,7 +234,10 @@ extension GameScene: SKPhysicsContactDelegate {
         }
         
         if verifyContactObjects(nameA: "player", nameB: "element", contact: contact) {
-            if (self.background?.progressBar?.progress?.size.width)! <= 0 { return }
+            if (self.background?.progressBar?.progress?.size.width)! <= 0 {
+                gameOver()
+                return
+            }
             guard let element = getObject(name: "element", contact: contact) as? Element else { return }
             guard let damageBase = self.background?.progressBar?.maxSize else { return }
             switch element.type {
