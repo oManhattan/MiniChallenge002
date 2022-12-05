@@ -170,6 +170,7 @@ class GameScene: SKScene {
     }
     
     func gameOver() {
+        self.configurationButton?.isUserInteractionEnabled = false
         self.background?.stateMachine?.enter(BackgroundPauseState.self)
         self.player?.stateMachine?.enter(PlayerPauseState.self)
         self.elementTimer?.pause()
@@ -194,17 +195,22 @@ class GameScene: SKScene {
         menu.name = "menu"
         
         
-        let newGameButton = SKButton<SKSpriteNode>(content: {
+        let newGameButton = SKButton<SKShapeNode>(content: {
             let title = SKLabelNode(text: "Começar novo jogo")
             title.fontName = "AvenirNext-Bold"
             title.verticalAlignmentMode = .center
             title.horizontalAlignmentMode = .center
             
-            let button = SKSpriteNode(texture: nil, color: UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1), size: CGSize(width: title.frame.size.width * 1.2, height: title.frame.size.height * 1.5))
-            button.position.y = 0
-            button.addChild(title)
+            let teste = SKShapeNode(rect: CGRect(origin: title.position, size: CGSize(width: title.frame.size.width * 1.2, height: title.frame.size.height * 1.5)), cornerRadius: 10)
+            teste.fillColor = UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1)
+            teste.strokeColor = .clear
             
-            return button
+            
+//            let button = SKSpriteNode(texture: nil, color: UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1), size: CGSize(width: title.frame.size.width * 1.2, height: title.frame.size.height * 1.5))
+//            button.position.y = 0
+            teste.addChild(title)
+    
+            return teste
         }()) {
             
             menu.removeFromParent()
@@ -218,11 +224,13 @@ class GameScene: SKScene {
             self.progressBarTimer?.start()
             self.distanceCounterTimer?.start()
             
+            self.configurationButton?.isUserInteractionEnabled = true
+            
         }
         newGameButton.zPosition = 6
         newGameButton.position.y = -menu.frame.midY * 0.75
         
-        let bestPointLabel = SKLabelNode(text: "\(bestPoint > self.distance ? bestPoint : self.distance)")
+        let bestPointLabel = SKLabelNode(text: "\(bestPoint > self.distance ? bestPoint : self.distance)m")
         bestPointLabel.fontName = "AvenirNext-Bold"
         bestPointLabel.verticalAlignmentMode = .bottom
         bestPointLabel.horizontalAlignmentMode = .center
@@ -233,24 +241,32 @@ class GameScene: SKScene {
         bestPointTitle.fontName = "AvenirNext-Bold"
         bestPointTitle.verticalAlignmentMode = .bottom
         bestPointTitle.horizontalAlignmentMode = .center
-        bestPointTitle.position.y = bestPointLabel.frame.maxY + bestPointTitle.frame.height * 2
+        bestPointTitle.position.y = bestPointLabel.frame.maxY
         bestPointTitle.zPosition = 6
         
-        let menuTitle = SKLabelNode(text: "Fim de Jogo")
-        menuTitle.position.y = menu.frame.maxY
-        menuTitle.zPosition = 6
-        
-        let pointsTitle = SKLabelNode(text: "Pontuação")
-        pointsTitle.position.y = menuTitle.frame.minY - pointsTitle.fontSize
-        pointsTitle.zPosition = 6
-        
-        let points = SKLabelNode(text: "\(self.distance)")
-        points.position.y = pointsTitle.frame.minY - 10
+        let points = SKLabelNode(text: "\(self.distance)m")
+        points.fontName = "AvenirNext-Bold"
+        points.verticalAlignmentMode = .bottom
+        points.horizontalAlignmentMode = .center
+        points.position.y = bestPointTitle.frame.maxY + points.frame.height
         points.zPosition = 6
         
+        let pointsTitle = SKLabelNode(text: "Pontuação")
+        pointsTitle.fontName = "AvenirNext-Bold"
+        pointsTitle.verticalAlignmentMode = .bottom
+        pointsTitle.horizontalAlignmentMode = .center
+        pointsTitle.position.y = points.frame.maxY
+        pointsTitle.zPosition = 6
         
-        
-        menu.addChildren([menuTitle, bestPointLabel, bestPointTitle, pointsTitle, newGameButton])
+        let menuTitle = SKLabelNode(text: "Fim de Jogo")
+        menuTitle.fontSize = 40
+        menuTitle.fontName = "AvenirNext-Bold"
+        menuTitle.verticalAlignmentMode = .bottom
+        menuTitle.horizontalAlignmentMode = .center
+        menuTitle.position.y = pointsTitle.frame.maxY + menuTitle.frame.height
+        menuTitle.zPosition = 6
+                
+        menu.addChildren([menuTitle, bestPointLabel, bestPointTitle, pointsTitle, newGameButton, points])
         self.addChildren([menu])
     }
     
