@@ -36,7 +36,7 @@ class BackgroundMovingState: GKState {
             }
             
             for child in node.children {
-                // Verificar se o subnode possui nome e se é diferente de "phyisic-ground"
+                // Verificar se o subnode possui nome e se é um background
                 guard let child = child as? SKSpriteNode,
                       let childName = child.name,
                       childName != "physic-ground",
@@ -45,6 +45,7 @@ class BackgroundMovingState: GKState {
                     continue
                 }
                 
+                // Troca da textura do background de acordo com a barra de progresso
                 if childName.contains("background") && child.position.x > node.frame.maxX {
                     let progress = node.progressBar?.progressPercent ?? 0
                     if progress > 0.75 {
@@ -63,9 +64,10 @@ class BackgroundMovingState: GKState {
                 child.position.x -= node.speed
                 
                 // Verificar se o node vai sair da tela e reposicionar
-                let delta = child.frame.maxX - node.speed
-                if delta <= -10 {
-                    child.position.x = ((self.node.frame.maxX - 10) * 2) - node.speed
+                
+                if child.position.x + node.speed < -(child.frame.width) {
+                    print("Current position: \(child.position.x) | Frame width: \(child.frame.width) | Frame maxX: \(child.frame.maxX)")
+                    child.position.x = (self.node.frame.width * 2) - node.speed + child.frame.maxX
                 }
             }
         }

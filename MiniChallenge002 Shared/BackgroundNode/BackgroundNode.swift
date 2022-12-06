@@ -39,7 +39,7 @@ class BackgroundNode: SKSpriteNode, SKStateNode {
             // Criando o chão
             let textureGround = GroundNode(size: self.size)
             textureGround.anchorPoint = .zero
-            textureGround.position.x = (self.frame.maxX * CGFloat(i)) - 10
+            textureGround.position.x = (self.frame.maxX * CGFloat(i))
             textureGround.position.y = 0
             textureGround.name = "texture-ground-\(i)"
             
@@ -49,7 +49,7 @@ class BackgroundNode: SKSpriteNode, SKStateNode {
                 color: .clear,
                 size: CGSize(width: self.size.width, height: self.size.height * 0.6))
             textureBackground.anchorPoint = .zero
-            textureBackground.position.x = (frame.maxX * CGFloat(i)) - 10
+            textureBackground.position.x = (frame.maxX * CGFloat(i))
             textureBackground.position.y = textureGround.frame.maxY - 15
             textureBackground.zPosition = -2
             textureBackground.name = "background-\(i)"

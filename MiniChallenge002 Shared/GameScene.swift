@@ -12,6 +12,7 @@ class GameScene: SKScene {
     var player: PlayerNode?
     var background: BackgroundNode?
     var startButton: SKButton<SKSpriteNode>?
+    var continueButton: SKButton<SKSpriteNode>?
     var configurationButton: SKButton<SKSpriteNode>?
     var progressLabel: SKLabelNode?
     
@@ -52,15 +53,32 @@ class GameScene: SKScene {
         playerNode.name = "player"
         playerNode.stateMachine?.enter(PlayerPauseState.self)
         
+        let continueButton = SKButton<SKSpriteNode>(content: {
+            let background = SKSpriteNode(texture: nil, color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.3), size: self.size)
+            let label = SKLabelNode(text: "Toque para continuar")
+            label.fontName = "AvenirNext-Bold"
+            background.addChild(label)
+            return background
+        }()) {
+            self.resumeGame()
+            self.continueButton?.removeFromParent()
+            self.addChild(self.configurationButton!)
+        }
+        continueButton.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        continueButton.zPosition = 2
+        continueButton.name = "continue-button"
+        
         let configButton = SKButton<SKSpriteNode>(
             content: SKSpriteNode(
-                texture: SKTexture(imageNamed: "ConfigButton"),
+                texture: SKTexture(imageNamed: "PauseButton"),
                 color: .clear,
                 size: CGSize(width: self.size.height * 0.15, height: self.size.height * 0.15)),
             action: {
                 self.pauseGame()
-                self.buildConfigurationMenu()
-                self.configurationButton?.isUserInteractionEnabled = false
+                self.addChild(continueButton)
+                self.configurationButton?.removeFromParent()
+//                self.buildConfigurationMenu()
+//                self.configurationButton?.isUserInteractionEnabled = false
             })
         configButton.position.x = self.frame.minX + (configButton.content.size.width * 0.5) + 10
         configButton.position.y = self.frame.minY + (configButton.content.size.height * 0.5) + 10
@@ -78,9 +96,10 @@ class GameScene: SKScene {
             action: {
                 self.resumeGame()
                 self.startButton?.removeFromParent()
+                self.addChild(configButton)
             })
         startButton.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        startButton.zPosition = 1
+        startButton.zPosition = 2
         startButton.name = "start-button"
         
         let progressLabel = SKLabelNode(text: "\(distance)m")
@@ -94,7 +113,6 @@ class GameScene: SKScene {
         
         self.addChildren([backgroundNode,
                           playerNode,
-                          configButton,
                           startButton,
                           progressLabel])
         
@@ -102,6 +120,7 @@ class GameScene: SKScene {
         self.player = playerNode
         self.configurationButton = configButton
         self.startButton = startButton
+        self.continueButton = continueButton
         self.progressLabel = progressLabel
         
         self.elementFactory = ElementFactory(scene: self)
@@ -131,15 +150,84 @@ class GameScene: SKScene {
         menu.zPosition = 4
         menu.name = "menu"
         
-        let closeButton = SKButton<SKSpriteNode>(content: SKSpriteNode(texture: SKTexture(imageNamed: "LeaveButton"), color: .red, size: CGSize(width: menu.size.height * 0.3, height: menu.size.height * 0.3))) {
-            self.resumeGame()
+        let menuTitle = SKLabelNode(text: "Configurações")
+        menuTitle.fontName = "AvenirNext-Bold"
+        menuTitle.verticalAlignmentMode = .center
+        menuTitle.horizontalAlignmentMode = .center
+        menuTitle.position.y = menu.frame.midY * 0.7
+        menuTitle.fontSize = 40
+        menuTitle.zPosition = 6
+        
+        let tutorialButton = SKButton<SKShapeNode>(content: {
+            let title = SKLabelNode(text: "Tutorial")
+            title.fontName = "AvenirNext-Bold"
+            title.verticalAlignmentMode = .bottom
+            
+            let button = SKShapeNode(rect: CGRect(origin: title.position, size: CGSize(width: menuTitle.frame.size.width * 1.2, height: menuTitle.frame.size.height * 1.5)), cornerRadius: 10)
+            button.fillColor = UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1)
+            button.strokeColor = .clear
+            button.position.y = menuTitle.frame.minY - (button.frame.height * 1.5)
+            button.position.x = 0 - button.frame.midX
+            
+            title.position.x = button.frame.maxX
+            title.position.y = title.frame.height * 0.7
+            
+            button.addChild(title)
+  
+            return button
+        }()) {
+            print("Depois eu faço o tutorial, rlx")
+        }
+        tutorialButton.zPosition = 6
+        
+        let aboutButton = SKButton<SKShapeNode>(content: {
+            let title = SKLabelNode(text: "Sobre")
+            title.fontName = "AvenirNext-Bold"
+            title.verticalAlignmentMode = .bottom
+            
+            let button = SKShapeNode(rect: CGRect(origin: title.position, size: CGSize(width: menuTitle.frame.size.width * 1.2, height: menuTitle.frame.size.height * 1.5)), cornerRadius: 10)
+            button.fillColor = UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1)
+            button.strokeColor = .clear
+            button.position.y = tutorialButton.content.frame.minY - (button.frame.height * 1.3)
+            button.position.x = 0 - button.frame.midX
+            
+            title.position.x = button.frame.maxX
+            title.position.y = title.frame.height * 0.7
+            
+            button.addChild(title)
+  
+            return button
+        }()) {
+            print("Aqui vai alguma coisa sobre o app")
+        }
+        aboutButton.zPosition = 6
+        
+        let closeButton = SKButton<SKShapeNode>(content: {
+            let title = SKLabelNode(text: "Fechar Menu")
+            title.fontName = "AvenirNext-Bold"
+            title.verticalAlignmentMode = .bottom
+            
+            let button = SKShapeNode(rect: CGRect(origin: title.position, size: CGSize(width: menuTitle.frame.size.width * 1.2, height: menuTitle.frame.size.height * 1.5)), cornerRadius: 10)
+            button.fillColor = UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1)
+            button.strokeColor = .clear
+            button.position.y = aboutButton.content.frame.minY - (button.frame.height * 1.3)
+            button.position.x = -button.frame.midX
+            
+            title.position.x = button.frame.maxX
+            title.position.y = title.frame.height * 0.7
+            
+            button.addChild(title)
+  
+            return button
+        }()) {
             menu.removeFromParent()
+            self.resumeGame()
             self.configurationButton?.isUserInteractionEnabled = true
         }
-        closeButton.position.x = menu.frame.maxX * 0.6
-        closeButton.position.y = menu.frame.maxY * 0.6
-        closeButton.zPosition = 5
-        menu.addChild(closeButton)
+        closeButton.zPosition = 6
+        
+        menu.addChildren([closeButton, menuTitle, tutorialButton, aboutButton])
+        
         self.addChild(menu)
     }
     
@@ -170,7 +258,7 @@ class GameScene: SKScene {
     }
     
     func gameOver() {
-        self.configurationButton?.isUserInteractionEnabled = false
+        self.configurationButton?.removeFromParent()
         self.background?.stateMachine?.enter(BackgroundPauseState.self)
         self.player?.stateMachine?.enter(PlayerPauseState.self)
         self.elementTimer?.pause()
@@ -193,7 +281,9 @@ class GameScene: SKScene {
         menu.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         menu.zPosition = 4
         menu.name = "menu"
-        
+        let background = SKSpriteNode(texture: nil, color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.3), size: self.size)
+        background.zPosition = 3
+        background.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
         let newGameButton = SKButton<SKShapeNode>(content: {
             let title = SKLabelNode(text: "Começar novo jogo")
@@ -201,19 +291,22 @@ class GameScene: SKScene {
             title.verticalAlignmentMode = .center
             title.horizontalAlignmentMode = .center
             
-            let teste = SKShapeNode(rect: CGRect(origin: title.position, size: CGSize(width: title.frame.size.width * 1.2, height: title.frame.size.height * 1.5)), cornerRadius: 10)
-            teste.fillColor = UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1)
-            teste.strokeColor = .clear
+            let button = SKShapeNode(rect: CGRect(origin: title.position, size: CGSize(width: title.frame.size.width * 1.2, height: title.frame.size.height * 1.5)), cornerRadius: 10)
+            button.fillColor = UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1)
+            button.strokeColor = .clear
+            button.position.y = 0 - button.frame.midY
+            button.position.x = 0 - button.frame.midX
             
+            title.position.x = button.frame.maxX
+            title.position.y = button.frame.maxY
             
-//            let button = SKSpriteNode(texture: nil, color: UIColor(red: 0.141, green: 0.122, blue: 0.149, alpha: 1), size: CGSize(width: title.frame.size.width * 1.2, height: title.frame.size.height * 1.5))
-//            button.position.y = 0
-            teste.addChild(title)
-    
-            return teste
+            button.addChild(title)
+  
+            return button
         }()) {
             
             menu.removeFromParent()
+            background.removeFromParent()
             
             self.distance = 0
             self.progressLabel?.text = "\(self.distance)"
@@ -224,8 +317,7 @@ class GameScene: SKScene {
             self.progressBarTimer?.start()
             self.distanceCounterTimer?.start()
             
-            self.configurationButton?.isUserInteractionEnabled = true
-            
+            self.addChild(self.configurationButton!)
         }
         newGameButton.zPosition = 6
         newGameButton.position.y = -menu.frame.midY * 0.75
@@ -267,7 +359,7 @@ class GameScene: SKScene {
         menuTitle.zPosition = 6
                 
         menu.addChildren([menuTitle, bestPointLabel, bestPointTitle, pointsTitle, newGameButton, points])
-        self.addChildren([menu])
+        self.addChildren([menu, background])
     }
     
     override func didMove(to view: SKView) {
@@ -292,11 +384,7 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let player = self.childNode(withName: "player") as? PlayerNode else { return }
         player.stateMachine?.enter(PlayerJumpingState.self)
-        
-        //Função para parar o audio
-        
-        //Função para iniciar o audio
-        //backgroundSound.run(SKAction.play())
+
     }
     
 }
