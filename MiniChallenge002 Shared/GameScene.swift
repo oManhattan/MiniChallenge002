@@ -118,7 +118,7 @@ class GameScene: SKScene {
         
         self.progressBarTimer = GameTimer(startValue: 0.1, action: {
             if (self.background?.progressBar?.progress?.size.width)! > 0{
-                self.background?.progressBar?.progress?.size.width -= 3
+                self.background?.progressBar?.progress?.size.width -= 5
                 self.saturation = (self.background?.progressBar?.progress?.size.width ?? 0) / 1000
             }
         })
@@ -315,9 +315,9 @@ extension GameScene: SKPhysicsContactDelegate {
             guard let damageBase = self.background?.progressBar?.maxSize else { return }
             switch element.type {
             case .nature:
-                self.background?.progressBar?.addProgress(value: damageBase * 0.05)
+                self.background?.progressBar?.addProgress(value: damageBase * 0.01)
             case .fire:
-                self.background?.progressBar?.removeProgress(value: damageBase * 0.05)
+                self.background?.progressBar?.removeProgress(value: damageBase * 0.01)
             }
             element.removeFromParent()
             return
