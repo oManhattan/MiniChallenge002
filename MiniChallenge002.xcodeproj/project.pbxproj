@@ -34,6 +34,7 @@
 		31F3EFF8293CE7030020907E /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3EFF7293CE7030020907E /* PhysicsCategory.swift */; };
 		3F6E5385293FF1160060AEA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F6E5387293FF1160060AEA2 /* Localizable.strings */; };
 		88F3A32429390EF600561FED /* ElementFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F3A32329390EF600561FED /* ElementFactory.swift */; };
+		F388228E2940164300869D71 /* Avaliacao.swift in Sources */ = {isa = PBXBuildFile; fileRef = F388228D2940164300869D71 /* Avaliacao.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		3F6E5384293FF10C0060AEA2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		3F6E5386293FF1160060AEA2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		88F3A32329390EF600561FED /* ElementFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementFactory.swift; sourceTree = "<group>"; };
+		F388228D2940164300869D71 /* Avaliacao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avaliacao.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 		31E7782C2937AED6004C8E20 /* MiniChallenge002 Shared */ = {
 			isa = PBXGroup;
 			children = (
+				F388228C2940162E00869D71 /* Avaliacao */,
 				314F8BFC294013BC00DDFF5B /* Music */,
 				31F3EFF4293CE3370020907E /* Util */,
 				88F3A32229390EC500561FED /* ElementNode */,
@@ -192,6 +195,14 @@
 				88F3A32329390EF600561FED /* ElementFactory.swift */,
 			);
 			path = ElementNode;
+			sourceTree = "<group>";
+		};
+		F388228C2940162E00869D71 /* Avaliacao */ = {
+			isa = PBXGroup;
+			children = (
+				F388228D2940164300869D71 /* Avaliacao.swift */,
+			);
+			path = Avaliacao;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,6 +299,7 @@
 				31E778532937B995004C8E20 /* BackgroundPauseState.swift in Sources */,
 				31F3EFF6293CE3590020907E /* GameTimer.swift in Sources */,
 				3131D7D5293A8F40008E2E19 /* SKStateNode.swift in Sources */,
+				F388228E2940164300869D71 /* Avaliacao.swift in Sources */,
 				31E7784F2937B95B004C8E20 /* BackgroundNode.swift in Sources */,
 				317F7CDF293823E90086EB94 /* SKButton.swift in Sources */,
 			);
@@ -443,7 +455,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KFCLN3TFTY;
+				DEVELOPMENT_TEAM = 989H3WYBTX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Last Leaf";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
@@ -477,7 +489,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KFCLN3TFTY;
+				DEVELOPMENT_TEAM = 989H3WYBTX;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Last Leaf";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
