@@ -140,8 +140,27 @@ class GameScene: SKScene {
                 self.saturation = (self.background?.progressBar?.progress?.size.width ?? 0) / 1000
             }
         })
+        
+        let app = UIApplication.shared
+        NotificationCenter.default.addObserver(self, selector: #selector(GameScene.applicationWillResignActive(notification:)), name: UIApplication.willResignActiveNotification, object: app)
     }
-    
+
+    @objc
+    func applicationWillResignActive(notification: NSNotification) {
+        
+        if let _ = self.childNode(withName: "menu") {
+            return
+        }
+        
+        if self.startButton?.parent != nil {
+            return
+        }
+        
+        self.pauseGame()
+        self.addChild(self.continueButton!)
+        self.configurationButton?.removeFromParent()
+    }
+
     func buildConfigurationMenu() {
         let menu = SKSpriteNode(texture: SKTexture(imageNamed: "PopUp"), color: .clear, size: CGSize(width: self.size.width * 0.8, height: self.size.height * 0.8))
         menu.aspectFillToSize(fillSize: CGSize(width: self.size.width * 0.8, height: self.size.height * 0.8))
