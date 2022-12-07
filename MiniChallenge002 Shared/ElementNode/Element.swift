@@ -13,6 +13,7 @@ class Element: SKSpriteNode, SKStateNode {
     
     var stateMachine: GKStateMachine?
     var type: ElementType
+    var initialPosition: CGPoint = .zero
     
     init(type: ElementType, texture: SKTexture, size: CGSize) {
         self.type = type
@@ -31,8 +32,20 @@ class Element: SKSpriteNode, SKStateNode {
         self.physicsBody?.contactTestBitMask = PhysicsCategory.personagem
     }
     
+    func setPosition(position: CGPoint) {
+        self.initialPosition = position
+        self.position = position
+    }
+    
+    func resetToInitialPosition() {
+        self.position = self.initialPosition
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoder not supported")
     }
     
+    override func copy(with zone: NSZone? = nil) -> Any {
+        return Element(type: self.type, texture: self.texture!, size: self.size)
+    }
 }

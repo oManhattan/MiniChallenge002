@@ -13,93 +13,108 @@ class ElementFactory {
     let natureTexture: SKTexture = SKTexture(imageNamed: "NaturePoint")
     let fireTexture: SKTexture = SKTexture(imageNamed: "FirePoint")
     
-    var scene: SKScene
+    let scene: SKScene
+    let basePosition: CGFloat
+    let elementSize: CGSize
     var patterns: [[Element]] = []
+    var cooldownPatterns: [[Element]] = []
     
-    init(scene: SKScene) {
+    init(scene: SKScene, basePosition: CGFloat) {
         self.scene = scene
+        self.basePosition = basePosition
+        self.elementSize = CGSize(width: scene.size.height * 0.07, height: scene.size.height * 0.07)
         natureTexture.preload {}
         fireTexture.preload {}
         setUpPatterns()
     }
     
     func setUpPatterns() {
-        guard let scene = self.scene as? GameScene else {
-            print("Failed to convert SKScene to GameScene")
+        patterns = [
+            floorPattern(sequence: [.nature, .nature, .nature]),
+            floorPattern(sequence: [.fire, .fire, .fire]),
+            floorPattern(sequence: [.nature, .nature, .fire]),
+            floorPattern(sequence: [.nature, .fire, .fire]),
+            floorPattern(sequence: [.fire, .fire, .nature]),
+            floorPattern(sequence: [.fire, .nature, .nature]),
+            
+            skyPattern(sequence: [.nature, .nature, .nature]),
+            skyPattern(sequence: [.fire, .fire, .fire]),
+            skyPattern(sequence: [.nature, .nature, .fire]),
+            skyPattern(sequence: [.nature, .fire, .fire]),
+            skyPattern(sequence: [.fire, .fire, .nature]),
+            skyPattern(sequence: [.fire, .nature, .nature]),
+            
+            wallPattern(sequence: [.nature, .nature]),
+            wallPattern(sequence: [.fire, .fire]),
+            wallPattern(sequence: [.fire, .nature])
+        ]
+    }
+    
+    func randomPattern() {
+        guard let sortedNum = Array(0..<self.patterns.count).randomElement() else {
             return
         }
         
-        guard let positionY = scene.background?.physicGround?.frame.maxY else {
-            print("Failed to get ground position")
-            return
+        let pattern: [Element] = self.patterns.remove(at: sortedNum).map({$0.resetToInitialPosition(); return $0 })
+        
+        self.cooldownPatterns.append(pattern)
+        
+        if self.cooldownPatterns.count > 3 {
+            let aux = self.cooldownPatterns.removeFirst()
+            self.patterns.append(aux)
         }
-        let size = CGSize(width: scene.size.height * 0.07, height: scene.size.height * 0.07)
-        self.patterns.append(pattern001(elementSize: size, positionY: positionY))
-        self.patterns.append(pattern002(elementSize: size, positionY: positionY))
-        self.patterns.append(pattern003(elementSize: size, positionY: positionY))
+        
+        self.scene.addChildrenWithAction(pattern, state: ElementMovingState.self)
     }
     
-    func randomPattern() -> [Element] {
-        guard let scene = self.scene as? GameScene else {
-            print("Failed to convert SKScene to GameScene")
-            return []
-        }
-        guard let positionY = scene.background?.physicGround?.frame.maxY else {
-            print("Failed to get ground position")
-            return []
-        }
-        let size = CGSize(width: scene.size.height * 0.07, height: scene.size.height * 0.07)
-        switch Array(1...3).randomElement()! {
-        case 1:
-            return pattern001(elementSize: size, positionY: positionY)
-        case 2:
-            return pattern002(elementSize: size, positionY: positionY)
-        case 3:
-            return pattern003(elementSize: size, positionY: positionY)
-        default:
-            return []
-        }
-    }
-    
-    private func randomElement(size: CGSize) -> Element {
-        switch ElementType.allCases.randomElement()! {
-        case .nature:
-            return Element(type: .nature, texture: natureTexture, size: size)
+    func createElement(type: ElementType) -> Element {
+        switch type {
         case .fire:
-            return Element(type: .fire, texture: fireTexture, size: size)
+            return Element(type: type, texture: self.fireTexture, size: self.elementSize)
+        case .nature:
+            return Element(type: type, texture: self.natureTexture, size: self.elementSize)
         }
     }
     
-    func pattern001(elementSize: CGSize, positionY: CGFloat) -> [Element] {
+    func floorPattern(sequence: [ElementType]) -> [Element] {
         var pattern: [Element] = []
-        for i in 0...2 {
-            let element = randomElement(size: elementSize)
-            element.position.x = (scene.frame.maxX + 10) + (CGFloat(i) * (element.size.width + 20))
-            element.position.y = positionY + 5 + (element.frame.height / 2)
+        
+        for i in 0..<sequence.count {
+            let element = createElement(type: sequence[i])
+            let positionX = (self.scene.frame.maxX + 10) + (CGFloat(i)  * element.frame.width * 1.8)
+            let positionY = self.basePosition + element.frame.height
+            element.setPosition(position: CGPoint(x: positionX, y: positionY))
             pattern.append(element)
         }
+        
         return pattern
     }
     
-    func pattern002(elementSize: CGSize, positionY: CGFloat) -> [Element] {
+    func skyPattern(sequence: [ElementType]) -> [Element] {
         var pattern: [Element] = []
-        for i in 0...2 {
-            let element = randomElement(size: elementSize)
-            element.position.x = (scene.frame.maxX + 10) + (CGFloat(i) * (element.size.width + 20))
-            element.position.y = positionY + 5 + (element.frame.height * 5)
+        
+        for i in 0..<sequence.count {
+            let element = createElement(type: sequence[i])
+            let positionX = (self.scene.frame.maxX + 10) + (CGFloat(i)  * element.frame.width * 1.8)
+            let positionY = self.basePosition + (element.frame.height * 5)
+            element.setPosition(position: CGPoint(x: positionX, y: positionY))
             pattern.append(element)
         }
+        
         return pattern
     }
     
-    func pattern003(elementSize: CGSize, positionY: CGFloat) -> [Element] {
+    func wallPattern(sequence: [ElementType]) -> [Element] {
         var pattern: [Element] = []
-        for i in 0...1 {
-            let element = randomElement(size: elementSize)
-            element.position.x = (scene.frame.maxX + 10)
-            element.position.y = positionY + 20 + (element.frame.height * CGFloat(i))
+        
+        for i in 0..<sequence.count {
+            let element = createElement(type: sequence[i])
+            let positionX = self.scene.frame.maxX + 10
+            let positionY = self.basePosition + element.frame.height + (element.frame.height * CGFloat(i) * 1.3)
+            element.setPosition(position: CGPoint(x: positionX, y: positionY))
             pattern.append(element)
         }
+        
         return pattern
     }
 }

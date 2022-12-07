@@ -59,15 +59,12 @@ class BackgroundMovingState: GKState {
                     }
                 }
                 
-                
                 // Subtrair a posição do subnode de acordo com a velocidade do node pai
                 child.position.x -= node.speed
                 
                 // Verificar se o node vai sair da tela e reposicionar
-                
                 if child.position.x + node.speed < -(child.frame.width) {
-                    print("Current position: \(child.position.x) | Frame width: \(child.frame.width) | Frame maxX: \(child.frame.maxX)")
-                    child.position.x = (self.node.frame.width * 2) - node.speed + child.frame.maxX
+                    child.position.x = (self.node.frame.width * 2) + child.frame.maxX
                 }
             }
         }

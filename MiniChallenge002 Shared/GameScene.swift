@@ -123,11 +123,10 @@ class GameScene: SKScene {
         self.continueButton = continueButton
         self.progressLabel = progressLabel
         
-        self.elementFactory = ElementFactory(scene: self)
+        self.elementFactory = ElementFactory(scene: self, basePosition: backgroundNode.physicGround?.frame.maxY ?? 0)
         
-        self.elementTimer = GameTimer(startValue: 1.3, action: {
-            guard let randomPattern = self.elementFactory?.randomPattern() else { return }
-            self.addChildrenWithAction(randomPattern, state: ElementMovingState.self)
+        self.elementTimer = GameTimer(startValue: 1.19, action: {
+            self.elementFactory?.randomPattern()
         })
         
         self.distanceCounterTimer = GameTimer(startValue: 0.2, action: {
@@ -408,6 +407,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 self.background?.progressBar?.removeProgress(value: damageBase * 0.01)
             }
             element.removeFromParent()
+            element.stateMachine?.enter(ElementPauseState.self)
             return
         }
     }

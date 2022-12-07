@@ -16,6 +16,10 @@ class ElementMovingState: GKState {
         self.element = element
     }
     
+    override func nextState() {
+        self.element.stateMachine?.enter(ElementPauseState.self)
+    }
+    
     override func isValidNextState(_ stateClass: AnyClass) -> Bool {
         switch stateClass {
         case is ElementPauseState.Type:
@@ -35,8 +39,9 @@ class ElementMovingState: GKState {
             }
             node.position.x -= node.speed
             
-            if node.frame.maxX - 2 <= -10 {
+            if node.position.x - node.speed <= -(node.frame.width) && node.parent != nil {
                 node.removeFromParent()
+                self.nextState()
             }
         }
         

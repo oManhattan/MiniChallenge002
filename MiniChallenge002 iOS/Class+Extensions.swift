@@ -77,3 +77,9 @@ extension Array where Element == SKTexture {
         })
     }
 }
+
+extension Array {
+    func copy() -> [Any] where Element: NSCopying {
+        return self.map({$0.copy()})
+    }
+}
