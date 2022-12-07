@@ -12,6 +12,7 @@
 		3131D7D1293A8D7A008E2E19 /* ElementMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */; };
 		3131D7D3293A8E21008E2E19 /* ElementPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D2293A8E21008E2E19 /* ElementPauseState.swift */; };
 		3131D7D5293A8F40008E2E19 /* SKStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D4293A8F40008E2E19 /* SKStateNode.swift */; };
+		314F8BFE294013DE00DDFF5B /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 314F8BFD294013DE00DDFF5B /* music.mp3 */; };
 		317F7CDF293823E90086EB94 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F7CDE293823E90086EB94 /* SKButton.swift */; };
 		317F7CE2293829470086EB94 /* ProgressBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F7CE1293829470086EB94 /* ProgressBarNode.swift */; };
 		31E778392937AED6004C8E20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778382937AED6004C8E20 /* AppDelegate.swift */; };
@@ -33,7 +34,6 @@
 		31F3EFF8293CE7030020907E /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3EFF7293CE7030020907E /* PhysicsCategory.swift */; };
 		3F6E5385293FF1160060AEA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F6E5387293FF1160060AEA2 /* Localizable.strings */; };
 		88F3A32429390EF600561FED /* ElementFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F3A32329390EF600561FED /* ElementFactory.swift */; };
-		F388228B294011CB00869D71 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F388228A294011CB00869D71 /* music.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +42,7 @@
 		3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementMovingState.swift; sourceTree = "<group>"; };
 		3131D7D2293A8E21008E2E19 /* ElementPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementPauseState.swift; sourceTree = "<group>"; };
 		3131D7D4293A8F40008E2E19 /* SKStateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStateNode.swift; sourceTree = "<group>"; };
+		314F8BFD294013DE00DDFF5B /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		317F7CDE293823E90086EB94 /* SKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
 		317F7CE1293829470086EB94 /* ProgressBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNode.swift; sourceTree = "<group>"; };
 		31E7782F2937AED6004C8E20 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -66,7 +67,6 @@
 		3F6E5384293FF10C0060AEA2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		3F6E5386293FF1160060AEA2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		88F3A32329390EF600561FED /* ElementFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementFactory.swift; sourceTree = "<group>"; };
-		F388228A294011CB00869D71 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music.mp3; path = ../../../Downloads/music.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		314F8BFC294013BC00DDFF5B /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				314F8BFD294013DE00DDFF5B /* music.mp3 */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
 		317F7CDD293823DB0086EB94 /* ButtonNode */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +116,7 @@
 		31E7782C2937AED6004C8E20 /* MiniChallenge002 Shared */ = {
 			isa = PBXGroup;
 			children = (
+				314F8BFC294013BC00DDFF5B /* Music */,
 				31F3EFF4293CE3370020907E /* Util */,
 				88F3A32229390EC500561FED /* ElementNode */,
 				317F7CE0293829340086EB94 /* ProgressBarNode */,
@@ -115,7 +124,6 @@
 				31E778562937DD62004C8E20 /* PlayerNode */,
 				31E7784D2937B8BA004C8E20 /* BackgroundNode */,
 				31E7782F2937AED6004C8E20 /* GameScene.swift */,
-				F388228A294011CB00869D71 /* music.mp3 */,
 				31E778302937AED6004C8E20 /* Assets.xcassets */,
 			);
 			path = "MiniChallenge002 Shared";
@@ -245,7 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F388228B294011CB00869D71 /* music.mp3 in Resources */,
+				314F8BFE294013DE00DDFF5B /* music.mp3 in Resources */,
 				3F6E5385293FF1160060AEA2 /* Localizable.strings in Resources */,
 				31E7783E2937AED6004C8E20 /* Main.storyboard in Resources */,
 				31E778412937AED6004C8E20 /* LaunchScreen.storyboard in Resources */,
@@ -435,7 +443,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 273QY7G77Q;
+				DEVELOPMENT_TEAM = KFCLN3TFTY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Last Leaf";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
@@ -469,7 +477,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 273QY7G77Q;
+				DEVELOPMENT_TEAM = KFCLN3TFTY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Last Leaf";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
