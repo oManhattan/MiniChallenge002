@@ -21,7 +21,7 @@ class GameScene: SKScene {
     var distance = 0
     var life = 100.0
     
-//    var backgroundSound = SKAudioNode(fileNamed: "teste.mp3")
+    var backgroundMusic = SKAudioNode(fileNamed: "music.mp3")
     
     var elementTimer: GameTimer?
     var progressBarTimer: GameTimer?
@@ -114,7 +114,7 @@ class GameScene: SKScene {
         self.addChildren([backgroundNode,
                           playerNode,
                           startButton,
-                          progressLabel])
+                          progressLabel, backgroundMusic])
         
         self.background = backgroundNode
         self.player = playerNode

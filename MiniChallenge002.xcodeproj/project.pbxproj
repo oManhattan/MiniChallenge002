@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3131D7CB29399CD6008E2E19 /* teste.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3131D7CA29399CD6008E2E19 /* teste.mp3 */; };
 		3131D7CD29399E54008E2E19 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7CC29399E54008E2E19 /* Element.swift */; };
 		3131D7CF293A34AD008E2E19 /* ElementType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7CE293A34AD008E2E19 /* ElementType.swift */; };
 		3131D7D1293A8D7A008E2E19 /* ElementMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */; };
@@ -34,10 +33,10 @@
 		31F3EFF8293CE7030020907E /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3EFF7293CE7030020907E /* PhysicsCategory.swift */; };
 		3F6E5385293FF1160060AEA2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3F6E5387293FF1160060AEA2 /* Localizable.strings */; };
 		88F3A32429390EF600561FED /* ElementFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88F3A32329390EF600561FED /* ElementFactory.swift */; };
+		F388228B294011CB00869D71 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F388228A294011CB00869D71 /* music.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3131D7CA29399CD6008E2E19 /* teste.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = teste.mp3; sourceTree = "<group>"; };
 		3131D7CC29399E54008E2E19 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		3131D7CE293A34AD008E2E19 /* ElementType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementType.swift; sourceTree = "<group>"; };
 		3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementMovingState.swift; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		3F6E5384293FF10C0060AEA2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		3F6E5386293FF1160060AEA2 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		88F3A32329390EF600561FED /* ElementFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementFactory.swift; sourceTree = "<group>"; };
+		F388228A294011CB00869D71 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = music.mp3; path = ../../../Downloads/music.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +115,7 @@
 				31E778562937DD62004C8E20 /* PlayerNode */,
 				31E7784D2937B8BA004C8E20 /* BackgroundNode */,
 				31E7782F2937AED6004C8E20 /* GameScene.swift */,
-				3131D7CA29399CD6008E2E19 /* teste.mp3 */,
+				F388228A294011CB00869D71 /* music.mp3 */,
 				31E778302937AED6004C8E20 /* Assets.xcassets */,
 			);
 			path = "MiniChallenge002 Shared";
@@ -245,10 +245,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F388228B294011CB00869D71 /* music.mp3 in Resources */,
 				3F6E5385293FF1160060AEA2 /* Localizable.strings in Resources */,
 				31E7783E2937AED6004C8E20 /* Main.storyboard in Resources */,
 				31E778412937AED6004C8E20 /* LaunchScreen.storyboard in Resources */,
-				3131D7CB29399CD6008E2E19 /* teste.mp3 in Resources */,
 				31E778452937AED6004C8E20 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
