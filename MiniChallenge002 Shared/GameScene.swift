@@ -285,8 +285,8 @@ class GameScene: SKScene {
         
         for child in self.children {
             guard let child = child as? Element else { continue }
-            child.removeAllActions()
             child.removeFromParent()
+            child.stateMachine?.enter(ElementPauseState.self)
         }
         
         let bestPoint = UserDefaults.standard.integer(forKey: "best-point")

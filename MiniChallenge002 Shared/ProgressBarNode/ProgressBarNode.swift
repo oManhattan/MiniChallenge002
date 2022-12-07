@@ -39,7 +39,7 @@ class ProgressBarNode: SKSpriteNode {
         progressBar.position.x = self.frame.maxX * 0.3
         progressBar.position.y = self.frame.minY - 5
         progressBar.name = "progress"
-        progressBar.zPosition = 0
+        progressBar.zPosition = -1
         self.addChild(progressBar)
         self.progress = progressBar
     }
