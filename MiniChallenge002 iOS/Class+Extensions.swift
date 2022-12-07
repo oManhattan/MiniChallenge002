@@ -83,3 +83,9 @@ extension Array {
         return self.map({$0.copy()})
     }
 }
+
+extension SKLabelNode {
+    convenience init(text: LocalizedStringResource) {
+        self.init(text: String(localized: text))
+    }
+}

@@ -55,7 +55,7 @@ class GameScene: SKScene {
         
         let continueButton = SKButton<SKSpriteNode>(content: {
             let background = SKSpriteNode(texture: nil, color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.3), size: self.size)
-            let label = SKLabelNode(text: "Toque para continuar")
+            let label = SKLabelNode(text: LocalizedStringResource(stringLiteral: "Toque para continuar"))
             label.fontName = "AvenirNext-Bold"
             background.addChild(label)
             return background
