@@ -136,7 +136,7 @@ class GameScene: SKScene {
         
         self.progressBarTimer = GameTimer(startValue: 0.1, action: {
             if (self.background?.progressBar?.progress?.size.width)! > 0{
-                self.background?.progressBar?.progress?.size.width -= 5
+                self.background?.progressBar?.progress?.size.width -= (self.background?.progressBar?.progressMaxSize ?? 100) * 0.01
                 self.saturation = (self.background?.progressBar?.progress?.size.width ?? 0) / 1000
             }
         })
@@ -328,7 +328,7 @@ class GameScene: SKScene {
             
             self.distance = 0
             self.progressLabel?.text = "\(self.distance)"
-            self.background?.progressBar?.progress?.size.width = self.background?.progressBar?.maxSize ?? 1000
+            self.background?.progressBar?.progress?.size.width = self.background?.progressBar?.progressMaxSize ?? 1000
             self.background?.stateMachine?.enter(BackgroundMovingState.self)
             self.player?.stateMachine?.enter(PlayerRuningState.self)
             self.elementTimer?.start()
@@ -418,12 +418,12 @@ extension GameScene: SKPhysicsContactDelegate {
         
         if verifyContactObjects(nameA: "player", nameB: "element", contact: contact) {
             guard let element = getObject(name: "element", contact: contact) as? Element else { return }
-            guard let damageBase = self.background?.progressBar?.maxSize else { return }
+            guard let damageBase = self.background?.progressBar?.progressMaxSize else { return }
             switch element.type {
             case .nature:
-                self.background?.progressBar?.addProgress(value: damageBase * 0.01)
+                self.background?.progressBar?.addProgress(value: damageBase * 0.02)
             case .fire:
-                self.background?.progressBar?.removeProgress(value: damageBase * 0.01)
+                self.background?.progressBar?.removeProgress(value: damageBase * 0.02)
             }
             element.removeFromParent()
             element.stateMachine?.enter(ElementPauseState.self)

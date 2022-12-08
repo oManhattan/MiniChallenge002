@@ -12,9 +12,9 @@
 		3131D7D1293A8D7A008E2E19 /* ElementMovingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */; };
 		3131D7D3293A8E21008E2E19 /* ElementPauseState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D2293A8E21008E2E19 /* ElementPauseState.swift */; };
 		3131D7D5293A8F40008E2E19 /* SKStateNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3131D7D4293A8F40008E2E19 /* SKStateNode.swift */; };
+		3136D434294148CE0071C548 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3136D433294148CE0071C548 /* ProgressBar.swift */; };
 		314F8BFE294013DE00DDFF5B /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 314F8BFD294013DE00DDFF5B /* music.mp3 */; };
 		317F7CDF293823E90086EB94 /* SKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F7CDE293823E90086EB94 /* SKButton.swift */; };
-		317F7CE2293829470086EB94 /* ProgressBarNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F7CE1293829470086EB94 /* ProgressBarNode.swift */; };
 		31E778392937AED6004C8E20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E778382937AED6004C8E20 /* AppDelegate.swift */; };
 		31E7783B2937AED6004C8E20 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E7783A2937AED6004C8E20 /* GameViewController.swift */; };
 		31E7783E2937AED6004C8E20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E7783C2937AED6004C8E20 /* Main.storyboard */; };
@@ -43,9 +43,9 @@
 		3131D7D0293A8D7A008E2E19 /* ElementMovingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementMovingState.swift; sourceTree = "<group>"; };
 		3131D7D2293A8E21008E2E19 /* ElementPauseState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementPauseState.swift; sourceTree = "<group>"; };
 		3131D7D4293A8F40008E2E19 /* SKStateNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKStateNode.swift; sourceTree = "<group>"; };
+		3136D433294148CE0071C548 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		314F8BFD294013DE00DDFF5B /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		317F7CDE293823E90086EB94 /* SKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKButton.swift; sourceTree = "<group>"; };
-		317F7CE1293829470086EB94 /* ProgressBarNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBarNode.swift; sourceTree = "<group>"; };
 		31E7782F2937AED6004C8E20 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		31E778302937AED6004C8E20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31E778352937AED6004C8E20 /* MiniChallenge002.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniChallenge002.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +102,7 @@
 		317F7CE0293829340086EB94 /* ProgressBarNode */ = {
 			isa = PBXGroup;
 			children = (
-				317F7CE1293829470086EB94 /* ProgressBarNode.swift */,
+				3136D433294148CE0071C548 /* ProgressBar.swift */,
 			);
 			path = ProgressBarNode;
 			sourceTree = "<group>";
@@ -286,7 +286,6 @@
 				31E778582937DD71004C8E20 /* PlayerNode.swift in Sources */,
 				31E7785A2937DD7C004C8E20 /* PlayerRuningState.swift in Sources */,
 				31F3EFF8293CE7030020907E /* PhysicsCategory.swift in Sources */,
-				317F7CE2293829470086EB94 /* ProgressBarNode.swift in Sources */,
 				3131D7D3293A8E21008E2E19 /* ElementPauseState.swift in Sources */,
 				31E7785C2937DD8A004C8E20 /* PlayerJumpingState.swift in Sources */,
 				31E7785E2937DDA0004C8E20 /* PlayerPauseState.swift in Sources */,
@@ -302,6 +301,7 @@
 				3131D7D5293A8F40008E2E19 /* SKStateNode.swift in Sources */,
 				F388228E2940164300869D71 /* Avaliacao.swift in Sources */,
 				31E7784F2937B95B004C8E20 /* BackgroundNode.swift in Sources */,
+				3136D434294148CE0071C548 /* ProgressBar.swift in Sources */,
 				317F7CDF293823E90086EB94 /* SKButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

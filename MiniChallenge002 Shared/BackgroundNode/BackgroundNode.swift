@@ -15,7 +15,7 @@ class BackgroundNode: SKSpriteNode, SKStateNode {
     var physicGround: SKSpriteNode?
     var backgroundSky: SKSpriteNode?
     var effectNode: SKEffectNode?
-    var progressBar: ProgressBarNode?
+    var progressBar: ProgressBar?
     
     init(size: CGSize) {
         super.init(texture: nil, color: .clear, size: size)
@@ -86,8 +86,8 @@ class BackgroundNode: SKSpriteNode, SKStateNode {
         effectNode.zPosition = -5
         effectNode.addChild(backgroundImage)
         
-        let progressBar = ProgressBarNode(size: self.size)
-        progressBar.position = CGPoint(x: self.frame.minX + 20, y: self.frame.maxY - 10)
+        let progressBar = ProgressBar(size: self.size)
+        progressBar.position = CGPoint(x: self.frame.minX + (progressBar.frame.size.height * 0.5) + 10, y: (self.frame.maxY - progressBar.size.height * 0.5) - 10)
         progressBar.name = "progress-bar"
         
         self.addChildren([physicsGround, effectNode, progressBar])
