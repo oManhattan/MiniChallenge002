@@ -88,7 +88,7 @@ class GameScene: SKScene {
         let startButton = SKButton<SKSpriteNode>(
             content: {
                 let background = SKSpriteNode(texture: nil, color: UIColor(red: 0, green: 0, blue: 0, alpha: 0.3), size: self.size)
-                let label = SKLabelNode(text: "Toque para começar")
+                let label = SKLabelNode(text: LocalizedStringResource(stringLiteral: "Toque para começar"))
                 label.fontName = "AvenirNext-Bold"
                 background.addChild(label)
                 return background
@@ -304,7 +304,7 @@ class GameScene: SKScene {
         background.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
         
         let newGameButton = SKButton<SKShapeNode>(content: {
-            let title = SKLabelNode(text: "Começar novo jogo")
+            let title = SKLabelNode(text: LocalizedStringResource(stringLiteral: "Começar novo jogo"))
             title.fontName = "AvenirNext-Bold"
             title.verticalAlignmentMode = .center
             title.horizontalAlignmentMode = .center
@@ -347,7 +347,7 @@ class GameScene: SKScene {
         bestPointLabel.position.y = newGameButton.frame.maxY + (bestPointLabel.frame.height * 2)
         bestPointLabel.zPosition = 6
         
-        let bestPointTitle = SKLabelNode(text: "Melhor Pontuação")
+        let bestPointTitle = SKLabelNode(text: LocalizedStringResource(stringLiteral: "Melhor Pontuação"))
         bestPointTitle.fontName = "AvenirNext-Bold"
         bestPointTitle.verticalAlignmentMode = .bottom
         bestPointTitle.horizontalAlignmentMode = .center
@@ -361,14 +361,14 @@ class GameScene: SKScene {
         points.position.y = bestPointTitle.frame.maxY + points.frame.height
         points.zPosition = 6
         
-        let pointsTitle = SKLabelNode(text: "Pontuação")
+        let pointsTitle = SKLabelNode(text: LocalizedStringResource(stringLiteral: "Pontuação"))
         pointsTitle.fontName = "AvenirNext-Bold"
         pointsTitle.verticalAlignmentMode = .bottom
         pointsTitle.horizontalAlignmentMode = .center
         pointsTitle.position.y = points.frame.maxY
         pointsTitle.zPosition = 6
         
-        let menuTitle = SKLabelNode(text: "Fim de Jogo")
+        let menuTitle = SKLabelNode(text: LocalizedStringResource(stringLiteral: "Fim de Jogo"))
         menuTitle.fontSize = 40
         menuTitle.fontName = "AvenirNext-Bold"
         menuTitle.verticalAlignmentMode = .bottom

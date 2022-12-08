@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  MiniChallenge002
+
+  Created by Well on 06/12/22.
+  
+*/
+
+"Toque para continuar" = "Tap to continue";
+"Toque para começar" = "Tap to start";
+"Começar novo jogo" = "Start new game";
+"Fim de Jogo" = "Game Over";
+"Pontuação" = "Score";
+"Melhor Pontuação" = "High Score";
