@@ -27,7 +27,7 @@ class ProgressBar: SKSpriteNode {
         
         self.anchorPoint.x = 0
         
-        let progressBase = SKSpriteNode(texture: SKTexture(imageNamed: "NaturePoint"), color: .clear, size: CGSize(width: size.height * 0.13, height: size.height * 0.13))
+        let progressBase = SKSpriteNode(texture: SKTexture(imageNamed: "BaseProgresso"), color: .clear, size: CGSize(width: size.height * 0.13, height: size.height * 0.13))
         progressBase.position = CGPoint(x: 0, y: 0)
         progressBase.zPosition = 5
         
@@ -57,23 +57,19 @@ class ProgressBar: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         fatalError("NSCoder not supported")
     }
-    
-    func removeProgress(value: CGFloat) {
-        if self.currentProgress - value <= 0 {
-            self.progress?.size.width = 0
-            return
-        }
-        
-        self.progress?.size.width -= value
+  
+    func takeDamage() {
+        let damage = self.progressMaxSize * 0.01
+        self.progress.size.width = (progress.size.width - damage <= 0) ? 0 : progress.size.width - damage
     }
     
-    func addProgress(value: CGFloat) {
-        if self.currentProgress + value >= self.progressMaxSize {
-            self.progress?.size.width = self.progressMaxSize
-            return
-        }
-        
-        self.progress?.size.width += value
+    func healBar() {
+        let heal = self.progressMaxSize * 0.01
+        self.progress.size.width = (progress.size.width + heal >= self.progressMaxSize) ? progressMaxSize : progress.size.width + heal
     }
     
+    func decreaseBar(value: Double) {
+        let decrease = self.progressMaxSize * value
+        self.progress.size.width = (progress.size.width - decrease <= 0) ? 0 : progress.size.width - decrease
+    }
 }

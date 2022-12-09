@@ -457,7 +457,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 989H3WYBTX;
+				DEVELOPMENT_TEAM = KFCLN3TFTY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Last Leaf";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
@@ -491,7 +491,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 989H3WYBTX;
+				DEVELOPMENT_TEAM = KFCLN3TFTY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "Last Leaf";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";

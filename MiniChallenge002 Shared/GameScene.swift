@@ -135,14 +135,15 @@ class GameScene: SKScene {
         })
         
         self.progressBarTimer = GameTimer(startValue: 0.1, action: {
-            if (self.background?.progressBar?.progress?.size.width)! > 0{
-                self.background?.progressBar?.progress?.size.width -= (self.background?.progressBar?.progressMaxSize ?? 100) * 0.01
-                self.saturation = (self.background?.progressBar?.progress?.size.width ?? 0) / 1000
-            }
+            self.background?.progressBar?.decreaseBar(value: 0.005)
+            self.saturation = Double(self.background?.progressBar?.progressPercent ?? 0)
         })
         
         let app = UIApplication.shared
+        
         NotificationCenter.default.addObserver(self, selector: #selector(GameScene.applicationWillResignActive(notification:)), name: UIApplication.willResignActiveNotification, object: app)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(GameScene.applicationWillResignActive(notification:)), name: UIApplication.didEnterBackgroundNotification, object: app)
     }
 
     @objc
@@ -152,7 +153,7 @@ class GameScene: SKScene {
             return
         }
         
-        if self.startButton?.parent != nil {
+        if self.startButton?.parent != nil || self.continueButton?.parent != nil {
             return
         }
         
@@ -421,9 +422,9 @@ extension GameScene: SKPhysicsContactDelegate {
             guard let damageBase = self.background?.progressBar?.progressMaxSize else { return }
             switch element.type {
             case .nature:
-                self.background?.progressBar?.addProgress(value: damageBase * 0.02)
+                self.background?.progressBar?.healBar()
             case .fire:
-                self.background?.progressBar?.removeProgress(value: damageBase * 0.02)
+                self.background?.progressBar?.takeDamage()
             }
             element.removeFromParent()
             element.stateMachine?.enter(ElementPauseState.self)
